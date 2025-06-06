@@ -1,0 +1,147 @@
+@using Nocco
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@Title - .NET by Example</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <link href="@(PathToCss)" rel="stylesheet" media="all" type="text/css" />
+    <script src="@(PathToJs)" type="text/javascript"></script>
+</head>
+<body onload="prettyPrint()">
+    <div id="container">
+        <h2>
+            <a href="index.html">.NET by Example</a>
+        </h2>
+
+        <h2>@Title</h2>
+
+        <div class="tabs">
+        @foreach (var file in Files.OrderByDescending(f => f.Key))
+        {
+            var fileName = @Path.GetFileName(file.Key);
+            var fileExt = @Path.GetExtension(file.Key);
+            
+            <div class="tab">
+                <input type="radio" id="@fileName" name="tab-group-1" checked>
+                <label for="@fileName">@GetAssociatedLanguageFromExtension(fileName)</label>
+
+                <div class="content">
+
+                    <table cellpadding="0" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="docs">
+                                    <h1>@Path.GetFileName(file.Key)</h1>
+                                </th>
+                                <th class="code"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (var i = 0; i < file.Value.Count; i++)
+                            {
+                                <tr id="section_@(i + 1)">
+                                    <td class="docs">
+                                        <div class="pilwrap">
+                                            <a class="pilcrow" href="#section_@(i + 1)">&#182;</a>
+                                        </div>
+                                        @((MarkupString)file.Value[i].DocsHtml)
+                                    </td>
+                                    <td class="code">
+                                        @if (@file.Value[i].CodeHtml != "" && @file.Value[i].CodeHtml != "\r\n") { <button id="copyscriptbutton-code" class="copy-code-button" type="button">Copy</button> }
+                                        <pre><code class='prettyprint'>@file.Value[i].CodeHtml</code></pre>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div><!--content-->
+
+            </div>
+        }
+        </div>
+
+        <table cellpadding="0" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="docs"></th>
+                    <th class="code"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < Runner.Count; i++)
+                {
+                    <tr id="section_@(i + 1)">
+                        <td class="docs">
+                            <div class="pilwrap">
+                                <a class="pilcrow" href="#section_@(i + 1)">&#182;</a>
+                            </div>
+                            @((MarkupString)Runner[i].DocsHtml)
+                        </td>
+                        <td class="code">
+                            @if (@Runner[i].CodeHtml != "" && @Runner[i].CodeHtml != "\r\n") { <button id="copyscriptbutton-bat" class="copy-code-button" type="button">Copy</button> }
+                            <pre><code class='prettyprint'>@Runner[i].CodeHtml</code></pre>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @* Sources.Where(s => s == Title) *@
+        @* <p class="next"> *@
+        @*     Next example: <a href="@GetSourcePath(Sources[i+1])" rel="next">@Sources[i+1].Substring(2)</a>. *@
+        @* </p> *@
+    </div>
+
+    <Footer />
+
+    <script src="nocco.js" type="text/javascript"></script>
+</body>
+</html>
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string PathToCss { get; set; }
+    [Parameter]
+    public string PathToJs { get; set; }
+
+    [Parameter]
+    public Dictionary<string, List<Section>> Files { get; set; }
+
+    [Parameter]
+    public List<Section> Runner { get; set; }
+
+    [Parameter]
+    public Func<string, string> GetSourcePath { get; set; }
+
+    // Map
+    string GetAssociatedLanguageFromExtension(string fileName)
+    {
+        var fileExt = @Path.GetExtension(fileName);
+        switch (fileExt)
+        {
+            case ".cs":
+            case ".csx":
+                return "C#";
+            case ".fs":
+            case ".fsx":
+                return "F#";
+            case ".vb":
+                return "VB.NET";
+            case ".js":
+                return "JS";
+            case ".sql":
+                return "sql";
+            case ".bat":
+                return "batch";
+            default:
+                return string.Empty;
+        }
+    }
+}

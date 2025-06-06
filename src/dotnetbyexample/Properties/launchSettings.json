@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Nocco": {
+      "commandName": "Project",
+      "commandLineArgs": "*.cs"
+    }
+  }
+}
