@@ -1,0 +1,40 @@
+name: Build / Deploy to GH Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, dev ]
+    paths: src/**
+  pull_request:
+    branches: [ main ]
+    paths: src/**
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 🛎️ Checkout
+      uses: actions/checkout@v4
+    
+    - name: ⚙️ Setup .NET 9.0
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+    
+    - name: ⬇️ Restore dependencies
+      run: dotnet restore
+      working-directory: src
+      
+    - name: 🔨 Build
+      run: dotnet build --no-restore
+      working-directory: src
+    
+    - name: 🏗️ Generate Site
+      run: dotnet run --project src/dotnetbyexample/dotnetbyexample.csproj
+
+    - name: 🚀 Deploy Code Coverage Report
+      uses: JamesIves/github-pages-deploy-action@v4.7.3
+      with:
+        branch: gh-pages
+        folder: site
