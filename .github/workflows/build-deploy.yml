@@ -27,7 +27,7 @@ jobs:
       working-directory: src
       
     - name: 🔨 Build
-      run: dotnet build --no-restore
+      run: dotnet build --configuration Release --no-restore 
       working-directory: src
     
     - name: 🏗️ Generate Site
