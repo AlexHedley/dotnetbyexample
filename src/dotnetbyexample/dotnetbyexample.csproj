@@ -22,7 +22,7 @@
     <None Update="Resources\favicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Nocco.css">
+    <None Update="Resources\nocco.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\nocco.js">
