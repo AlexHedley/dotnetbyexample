@@ -321,7 +321,7 @@ public class Nocco
             File.Copy(Path.Combine(_executingDirectory, "Resources", "nocco.js"), Path.Combine(Constants.SITE_FOLDER, "nocco.js"), true);
             File.Copy(Path.Combine(_executingDirectory, "Resources", "prettify.js"), Path.Combine(Constants.SITE_FOLDER, "prettify.js"), true);
 
-            var directories = Directory.GetDirectories(@"examples\", "*", SearchOption.TopDirectoryOnly);
+            var directories = Directory.GetDirectories(@"examples", "*", SearchOption.TopDirectoryOnly);
             Console.WriteLine($"{directories.Length} directories found.");
 
             foreach (var directory in directories)
