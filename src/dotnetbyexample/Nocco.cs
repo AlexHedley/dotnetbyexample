@@ -52,10 +52,8 @@ namespace Nocco;
 
 public class Nocco
 {
-    private static string _executingDirectory;
-    //private static List<string> _files;
+    private static string _executingDirectory = String.Empty;
     private static Dictionary<string, List<string>> _examples = new();
-    private static Dictionary<string, List<Section>> _files;
 
     //### Main Documentation Generation Functions
 
@@ -319,8 +317,8 @@ public class Nocco
             Directory.CreateDirectory(Constants.SITE_FOLDER);
 
             _executingDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            File.Copy(Path.Combine(_executingDirectory, "Resources", "Nocco.css"), Path.Combine(Constants.SITE_FOLDER, "nocco.css"), true);
-            File.Copy(Path.Combine(_executingDirectory, "Resources", "Nocco.js"), Path.Combine(Constants.SITE_FOLDER, "nocco.js"), true);
+            File.Copy(Path.Combine(_executingDirectory, "Resources", "nocco.css"), Path.Combine(Constants.SITE_FOLDER, "nocco.css"), true);
+            File.Copy(Path.Combine(_executingDirectory, "Resources", "nocco.js"), Path.Combine(Constants.SITE_FOLDER, "nocco.js"), true);
             File.Copy(Path.Combine(_executingDirectory, "Resources", "prettify.js"), Path.Combine(Constants.SITE_FOLDER, "prettify.js"), true);
 
             var directories = Directory.GetDirectories(@"examples\", "*", SearchOption.TopDirectoryOnly);
