@@ -11,6 +11,14 @@
 [![Dependabot Updates](https://github.com/AlexHedley/dotnetbyexample/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/AlexHedley/dotnetbyexample/actions/workflows/dependabot/dependabot-updates)
 [![Dependency Check](https://github.com/AlexHedley/dotnetbyexample/actions/workflows/depcheck.yml/badge.svg)](https://github.com/AlexHedley/dotnetbyexample/actions/workflows/depcheck.yml)
 
+> Content and build toolchain for _.NET by Example_, a site that teaches .NET (C#, F#, VB.NET) via annotated example programs/scripts.
+
+## Overview
+
+The .NET by Example site is built by extracting code and comments from source files in [examples](examples/) and rendering them using templates into a static public directory. The programs implementing this build process are in tools, along with dependencies specified in the [.csproj](src/dotnetbyexample/dotnetbyexample.csproj).
+
+The built public directory can be served by any static content system. The production site uses [GitHub](https://github.com) [Pages](https://docs.github.com/en/pages), for example - https://alexhedley.github.io/dotnetbyexample/.
+
 Inspired by [Go by Example](https://gobyexample.com/) ([Source](https://github.com/mmcgrana/gobyexample))
 
 ## examples
@@ -44,6 +52,8 @@ Locally
 - 📂[docs](docs/README.md)
 
 ## Dependencies
+
+If you wish to run the examples locally you can use `dotnet script`, although see [Announcing dotnet run app.cs – A simpler way to start with C# and .NET 10](https://devblogs.microsoft.com/dotnet/announcing-dotnet-run-app/) and I will update the scripts over time.
 
 **dotnet script**
 
