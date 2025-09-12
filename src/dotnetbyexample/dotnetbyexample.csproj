@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
     <None Update="Resources\favicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
