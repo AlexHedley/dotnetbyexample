@@ -34,7 +34,7 @@ jobs:
       run: dotnet run --property:Configuration=Release --project src/dotnetbyexample/dotnetbyexample.csproj 
 
     - name: 🚀 Deploy Code Coverage Report
-      uses: JamesIves/github-pages-deploy-action@v4.7.4
+      uses: JamesIves/github-pages-deploy-action@v4.7.6
       with:
         branch: gh-pages
         folder: site
