@@ -45,7 +45,7 @@ Locally
 
 `dotnet run --project src/dotnetbyexample/dotnetbyexample.csproj`
 
-> src\dotnetbyexample\bin\Release\net9.0\dotnetbyexample.exe
+> src\dotnetbyexample\bin\Release\net10.0\dotnetbyexample.exe
 
 ## docs
 
