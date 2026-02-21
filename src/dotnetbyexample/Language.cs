@@ -6,11 +6,11 @@ namespace Nocco
 {
 	class Language
 	{
-		public string Name;
-		public string Symbol;
+		public string Name = String.Empty;
+		public string Symbol = String.Empty;
 		public Regex CommentMatcher { get { return new Regex(@"^\s*" + Symbol + @"\s?"); } }
 		public Regex CommentFilter { get { return new Regex(@"(^#![/]|^\s*#\{)"); } }
-		public IDictionary<string, string> MarkdownMaps;
-		public IList<string> Ignores;
+		public IDictionary<string, string>? MarkdownMaps;
+		public IList<string>? Ignores;
 	}
 }

@@ -5,14 +5,14 @@ namespace Nocco {
 	public abstract class TemplateBase {
 
 		// Properties available from within the template
-		public string Title { get; set; }
-		public string PathToCss { get; set; }
-        public string PathToJs { get; set; }
-		public Func<string, string> GetSourcePath { get; set; }
-		public List<Section> Sections { get; set; }
-		public List<string> Sources { get; set; }
+		public string Title { get; set; } = String.Empty;
+        public string PathToCss { get; set; } = String.Empty;
+        public string PathToJs { get; set; } = String.Empty;
+        public Func<string, string> GetSourcePath { get; set; }
+		public List<Section> Sections { get; set; } = new();
+		public List<string> Sources { get; set; } = new();
 
-		public StringBuilder Buffer { get; set; }
+        public StringBuilder Buffer { get; set; }
 
 		protected TemplateBase() {
 			Buffer = new StringBuilder();

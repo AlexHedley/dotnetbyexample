@@ -50,8 +50,8 @@
 
 @code {
     [Parameter]
-    public string Title { get; set; }
+    public string Title { get; set; } = String.Empty;
 
     [Parameter]
-    public List<string> Sources { get; set; }
+    public List<string> Sources { get; set; } = new();
 }
