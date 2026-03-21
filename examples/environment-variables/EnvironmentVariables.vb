@@ -1,8 +1,8 @@
 ' Environment variables in VB.NET.
 
 Environment.SetEnvironmentVariable("FOO", "1")
-Console.WriteLine("FOO: " & (Environment.GetEnvironmentVariable("FOO") ?? "(not set)"))
-Console.WriteLine("BAR: " & (Environment.GetEnvironmentVariable("BAR") ?? "(not set)"))
+Console.WriteLine("FOO: " & If(Environment.GetEnvironmentVariable("FOO"), "(not set)"))
+Console.WriteLine("BAR: " & If(Environment.GetEnvironmentVariable("BAR"), "(not set)"))
 
 ' List all env vars (first few).
 Dim count As Integer = 0

@@ -4,21 +4,7 @@ open System.Threading.Channels
 let jobs = Channel.CreateUnbounded<int>()
 let doneChannel = Channel.CreateUnbounded<bool>()
 
-let worker () = async {
-    let! items = jobs.Reader.ReadAllAsync() |> AsyncSeq.ofAsyncEnum
-    // Use regular async enumerable processing.
-    let mutable cont = true
-    while cont do
-        try
-            let! j = jobs.Reader.ReadAsync().AsTask() |> Async.AwaitTask
-            printfn "received job %d" j
-        with _ ->
-            cont <- false
-    printfn "received all jobs"
-    do! doneChannel.Writer.WriteAsync(true).AsTask() |> Async.AwaitTask
-}
-
-// Simple approach using Task.
+// Worker reads jobs until the channel is closed.
 let workerTask = System.Threading.Tasks.Task.Run(fun () ->
     let reader = jobs.Reader
     let mutable running = true
