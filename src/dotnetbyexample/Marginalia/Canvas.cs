@@ -1,5 +1,5 @@
-// **Canvas** is a C# port of the Python `marginalia_grammar.py` from
-// [pythonbyexample](https://github.com/adewale/pythonbyexample). It provides
+// Canvas is a C# port of the Python marginalia_grammar.py from
+// pythonbyexample (https://github.com/adewale/pythonbyexample). It provides
 // a locked visual vocabulary for generating SVG diagram figures that accompany
 // example pages.
 //

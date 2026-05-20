@@ -164,7 +164,7 @@ public static void ForLoop(Canvas c)
     // Draw four cells representing the sequence items
     c.Cells(0, 10, new[] { "0", "1", "2", "3" }, w: 28, h: 24);
 
-    // Draw a caret above the third cell (index 2) as the current position
+    // Draw a dot above the third cell (index 2) as the current position
     c.Dot(0 + 2 * 28 + 14, 6, emphasis: true);
 
     // Label: range end
@@ -184,8 +184,8 @@ The canvas size is the bounding box of your marks in viewBox units.  Set `w`
 and `h` so the content fits without excessive padding.
 
 For the `ForLoop` example:
-* Width: four 28-unit cells = 112, plus the label ~100 extra = **210**
-* Height: cells at y=10, height 24, plus label row ≈ **70**
+* Width: four 28-unit cells = 112, plus the "stop here" label ~100 extra = **210**
+* Height: tag at y=6 (height ~8), cells at y=14 (height 24), label inside cells ≈ **46**
 
 Start with a round number, build, look, and adjust.
 
@@ -196,7 +196,7 @@ Start with a round number, build, look, and adjust.
 Still in `Figures.cs`, add an entry to the `Registry` dictionary:
 
 ```csharp
-["for-loop"] = (ForLoop, 210, 70),
+["for-loop"] = (ForLoop, 210, 46),
 //              ^paint    ^w   ^h
 ```
 
