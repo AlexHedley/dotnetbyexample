@@ -58,6 +58,13 @@ public static class FigureAttachments
                     "closure-cell",
                     "The inner function keeps a reference to the captured variable from the outer scope, so the captured value survives the outer call returning."),
             },
+            ["for"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "for-loop",
+                    "A for loop advances a counter through each value in the range one step at a time; the loop stops automatically when the range is exhausted."),
+            },
         };
 
     /// <summary>

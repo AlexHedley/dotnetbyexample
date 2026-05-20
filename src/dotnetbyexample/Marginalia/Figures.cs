@@ -79,6 +79,19 @@ public static class Figures
         c.Bind(0, 6, "x", "int", "42", objectW: 70, gap: 20);
     }
 
+    /// <summary>
+    /// For loops · a counter advances one cell at a time; the loop stops
+    /// when the range is exhausted.
+    /// </summary>
+    public static void ForLoop(Canvas c)
+    {
+        c.Tag(0, 6, "for i in range(4)");
+        c.Cells(0, 14, new[] { "0", "1", "2", "3" }, w: 28, h: 24);
+        // Orange dot above cell index 2 (x = 2*28 + 14 = 70) marks the current position
+        c.Dot(70, 10, emphasis: true);
+        c.Label(118, 26, "← stop here");
+    }
+
     // ── Registry ───────────────────────────────────────────────────────────
 
     /// <summary>
@@ -93,6 +106,7 @@ public static class Figures
             ["call-stack"]    = (CallStack,     200, 100),
             ["closure-cell"]  = (ClosureCell,   240, 120),
             ["variables-bind"]= (VariablesBind, 180, 44),
+            ["for-loop"]      = (ForLoop,       210, 46),
         };
 
     /// <summary>
