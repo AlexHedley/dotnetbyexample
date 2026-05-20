@@ -1,9 +1,9 @@
 // Figure paint functions and registry for .NET by Example.
 //
-// Each function receives a <see cref="Canvas"/> and draws one diagram using only
+// Each function receives a Canvas and draws one diagram using only
 // the canvas primitives — no raw SVG, no colour choices outside the palette.
 //
-// The <see cref="Registry"/> maps a figure name to its paint function and the
+// The Registry dictionary maps a figure name to its paint function and the
 // (width, height) of the canvas it should receive.
 
 namespace dotnetbyexample.Marginalia;
