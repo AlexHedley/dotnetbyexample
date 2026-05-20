@@ -45,6 +45,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using dotnetbyexample.Resources;
+using dotnetbyexample.Marginalia;
 using Index = dotnetbyexample.Resources.Index;
 using dotnetbyexample;
 
@@ -147,6 +148,10 @@ public class Nocco
         // Get the rest of the files
         files = files.Where(f => @Path.GetExtension(f.Key) != ".bat").ToDictionary();
 
+        // Look up any figures attached to this example
+        var slug = new DirectoryInfo(source).Name;
+        var figureBanners = FigureAttachments.GetFigures(slug).ToList();
+
         var html = await htmlRenderer.Dispatcher.InvokeAsync(async () =>
         {
             Func<string, string> getSourcePath = s =>
@@ -159,6 +164,7 @@ public class Nocco
                 { "GetSourcePath", getSourcePath },
                 { "Files", files },
                 { "Runner", runner },
+                { "FigureBanners", figureBanners },
             };
 
             var parameters = ParameterView.FromDictionary(dictionary);

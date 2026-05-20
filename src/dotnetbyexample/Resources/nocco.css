@@ -273,3 +273,41 @@ table td {
 	margin-top: 20px;
 	margin-left: 20px;
 }
+
+/*---------------------- Figure Banners -----------------------------*/
+/* Banner rows sit between the language tabs and the runner output.  */
+/* They hold one or more SVG figures as a small-multiple grid.       */
+.cell-banner {
+	margin: 32px 50px;
+	padding: 24px 0;
+	border-top: 1px dashed rgba(82, 16, 0, 0.25);
+	border-bottom: 1px dashed rgba(82, 16, 0, 0.25);
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 24px;
+	justify-items: center;
+}
+
+.cell-banner__figure {
+	margin: 0;
+	padding: 0;
+	max-width: 360px;
+}
+
+.cell-banner--1 .cell-banner__figure {
+	max-width: 440px;
+}
+
+.cell-banner__figure svg {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+.cell-banner__figure figcaption {
+	margin-top: 8px;
+	color: rgba(82, 16, 0, 0.7);
+	font-size: 0.92rem;
+	font-style: italic;
+	max-width: 44ch;
+}

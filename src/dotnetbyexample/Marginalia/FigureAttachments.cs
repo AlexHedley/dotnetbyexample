@@ -1,0 +1,79 @@
+// Figure attachment map for .NET by Example.
+//
+// This file records which figures appear on which example pages.
+// Example markdown and source files are never modified; figures are
+// curated here by the project owner.
+//
+// The anchor "after-last" renders a banner below the final code section.
+// Future anchors like "after-cell-0" can be wired up as the template evolves.
+
+namespace dotnetbyexample.Marginalia;
+
+/// <summary>
+/// Describes a figure attachment: the position, the figure name, and the
+/// caption that accompanies it.
+/// </summary>
+public sealed record FigureAttachment(string Anchor, string FigureName, string Caption);
+
+/// <summary>
+/// Maps example directory slugs to their figure attachments.
+///
+/// Slugs match the lowercase directory name under <c>examples/</c>.
+/// The convention matches the Python By Example attachment model:
+/// one or more figures per example page, each with an anchor and caption.
+/// </summary>
+public static class FigureAttachments
+{
+    /// <summary>
+    /// slug → ordered list of attachments (anchor, figure name, caption).
+    /// </summary>
+    public static readonly IReadOnlyDictionary<string, IReadOnlyList<FigureAttachment>> Attachments =
+        new Dictionary<string, IReadOnlyList<FigureAttachment>>(StringComparer.OrdinalIgnoreCase)
+        {
+            ["values"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "number-lines",
+                    "C# int is a 32-bit signed integer with a fixed range; double is an IEEE 64-bit value whose representable precision thins out near the extremes."),
+            },
+            ["variables"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "variables-bind",
+                    "A variable is a named slot that refers to an object. Assignment binds the slot; the object lives independently."),
+            },
+            ["recursion"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "call-stack",
+                    "Each recursive call pushes a new frame with the same method name and a smaller argument; the base case unwinds back up the stack."),
+            },
+            ["closures"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "closure-cell",
+                    "The inner function keeps a reference to the captured variable from the outer scope, so the captured value survives the outer call returning."),
+            },
+        };
+
+    /// <summary>
+    /// Returns all (svg, caption) pairs for the given example slug.
+    /// Returns an empty sequence if no figures are attached.
+    /// </summary>
+    public static IEnumerable<(string Svg, string Caption)> GetFigures(string slug)
+    {
+        if (!Attachments.TryGetValue(slug, out var attachments))
+            yield break;
+
+        foreach (var att in attachments)
+        {
+            var svg = Figures.RenderSvg(att.FigureName);
+            if (!string.IsNullOrEmpty(svg))
+                yield return (svg, att.Caption);
+        }
+    }
+}
