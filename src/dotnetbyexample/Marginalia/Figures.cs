@@ -451,6 +451,219 @@ public static class Figures
         c.Label(0, 82, "→ \"Hello, World!\"");
     }
 
+    /// <summary>
+    /// Atomic counters · concurrent increments update one shared counter using
+    /// synchronised atomic operations.
+    /// </summary>
+    public static void AtomicCounterSync(Canvas c)
+    {
+        c.CellBox(0, 8, "worker A", w: 64, h: 24);
+        c.CellBox(0, 50, "worker B", w: 64, h: 24);
+        c.ObjectBox(130, 28, "counter", "42", w: 76, h: 30, tagPosition: "inside");
+        c.ClosedArrow(66, 20, 128, 42);
+        c.ClosedArrow(66, 62, 128, 44, emphasis: true);
+        c.Tag(86, 14, "atomic++");
+        c.Tag(86, 70, "atomic++");
+    }
+
+    /// <summary>
+    /// Base64 encoding · bytes are encoded to base64 text and decoded back.
+    /// </summary>
+    public static void Base64Roundtrip(Canvas c)
+    {
+        c.ObjectBox(0, 12, "bytes", "[104 105]", w: 84, h: 30, tagPosition: "inside");
+        c.ClosedArrow(86, 27, 108, 27, emphasis: true);
+        c.ObjectBox(110, 12, "b64", "\"aGk=\"", w: 76, h: 30, tagPosition: "inside");
+        c.ClosedArrow(188, 27, 210, 27);
+        c.ObjectBox(212, 12, "bytes", "[104 105]", w: 84, h: 30, tagPosition: "inside");
+    }
+
+    /// <summary>
+    /// Channel directions · send-only and receive-only parameters expose only
+    /// one operation each.
+    /// </summary>
+    public static void ChannelDirections(Canvas c)
+    {
+        c.CellBox(0, 16, "send chan<-", w: 88, h: 24);
+        c.CellBox(152, 16, "recv <-chan", w: 88, h: 24);
+        c.CellBox(98, 16, "ch", w: 44, h: 24, soft: true);
+        c.ClosedArrow(90, 28, 96, 28);
+        c.ClosedArrow(146, 28, 152, 28, emphasis: true);
+    }
+
+    /// <summary>
+    /// Channel synchronisation · a worker signals completion to the main path
+    /// through a done channel.
+    /// </summary>
+    public static void ChannelSync(Canvas c)
+    {
+        c.CellBox(0, 8, "main", w: 58, h: 24);
+        c.CellBox(0, 56, "worker", w: 58, h: 24);
+        c.CellBox(128, 32, "done", w: 58, h: 24, soft: true);
+        c.ClosedArrow(60, 68, 126, 44, emphasis: true);
+        c.ClosedArrow(126, 44, 60, 20);
+        c.Label(64, 20, "wait");
+        c.Label(64, 74, "signal");
+    }
+
+    /// <summary>
+    /// Closing channels · closing the channel ends range when buffered values
+    /// are drained.
+    /// </summary>
+    public static void ChannelCloseRange(Canvas c)
+    {
+        c.Tag(46, 6, "close(ch)");
+        c.Cells(0, 14, new[] { "A", "B", "·" }, w: 30, h: 24);
+        c.ClosedArrow(96, 26, 126, 26);
+        c.CellBox(128, 14, "range ch", w: 74, h: 24);
+        c.Dashed(24, 44, 84, 44);
+        c.Tag(18, 56, "drain then stop");
+    }
+
+    /// <summary>
+    /// Command-line arguments · argv is an ordered array with program name at
+    /// index 0 and user arguments following.
+    /// </summary>
+    public static void CliArgsSlice(Canvas c)
+    {
+        c.Tag(0, 6, "args");
+        c.Cells(0, 12, new[] { "app", "foo", "bar" }, w: 44, h: 24);
+        c.Tag(0, 44, "[0]");
+        c.Tag(44, 44, "[1]");
+        c.Tag(88, 44, "[2]");
+    }
+
+    /// <summary>
+    /// Command-line flags · each flag has a name, default value, and parsed
+    /// runtime value.
+    /// </summary>
+    public static void CliFlagsParse(Canvas c)
+    {
+        c.Tag(0, 6, "flags");
+        c.CellBox(0, 12, "--port", w: 70, h: 22);
+        c.ObjectBox(74, 8, "default", "8080", w: 62, h: 30, tagPosition: "inside");
+        c.ObjectBox(140, 8, "parsed", "9090", w: 62, h: 30, tagPosition: "inside");
+        c.ClosedArrow(136, 23, 138, 23, emphasis: true);
+    }
+
+    /// <summary>
+    /// Context · cancellation propagates from parent to child contexts.
+    /// </summary>
+    public static void ContextCancelTree(Canvas c)
+    {
+        c.Node(100, 14, "root");
+        c.Node(44, 58, "ctx A");
+        c.Node(156, 58, "ctx B");
+        c.ClosedArrow(90, 24, 54, 48, emphasis: true);
+        c.ClosedArrow(110, 24, 146, 48);
+        c.Tag(78, 74, "cancel ↓");
+    }
+
+    /// <summary>
+    /// Custom errors · user-defined error values add typed fields alongside a
+    /// message string.
+    /// </summary>
+    public static void CustomErrorFields(Canvas c)
+    {
+        c.Frame(0, 0, 208, 84, label: "ArgError");
+        c.CellBox(10, 16, "Arg", w: 44, h: 20);
+        c.ObjectBox(60, 11, "string", "\"id\"", w: 70, h: 30, tagPosition: "inside");
+        c.CellBox(10, 48, "Msg", w: 44, h: 20);
+        c.ObjectBox(60, 43, "string", "\"bad\"", w: 86, h: 30, tagPosition: "inside");
+        c.ClosedArrow(166, 58, 204, 58, emphasis: true);
+        c.Label(168, 52, "Error()");
+    }
+
+    /// <summary>
+    /// Environment variables · process-wide key/value pairs are read at runtime.
+    /// </summary>
+    public static void EnvKeyValues(Canvas c)
+    {
+        c.Tag(0, 6, "environment");
+        c.ObjectBox(0, 12, "key", "HOME", w: 76, h: 28, tagPosition: "inside");
+        c.ObjectBox(92, 12, "value", "/tmp", w: 90, h: 28, tagPosition: "inside");
+        c.ClosedArrow(78, 26, 90, 26, emphasis: true);
+    }
+
+    /// <summary>
+    /// Epoch · current unix time is measured as seconds offset from 1970-01-01.
+    /// </summary>
+    public static void EpochOffset(Canvas c)
+    {
+        c.Tag(0, 8, "unix time");
+        c.Register(0, 20, 220);
+        c.Tag(0, 34, "1970-01-01");
+        c.Dot(176, 20, emphasis: true);
+        c.Tag(156, 34, "now");
+        c.Label(70, 50, "offset seconds");
+    }
+
+    /// <summary>
+    /// Logging · a structured log record carries level, time, and message.
+    /// </summary>
+    public static void StructuredLogEntry(Canvas c)
+    {
+        c.Frame(0, 0, 216, 66, label: "log entry");
+        c.CellBox(10, 16, "level=INFO", w: 66, h: 20);
+        c.CellBox(80, 16, "time=12:00", w: 66, h: 20);
+        c.CellBox(150, 16, "msg=up", w: 56, h: 20, soft: true);
+        c.ClosedArrow(180, 44, 206, 44, emphasis: true);
+    }
+
+    /// <summary>
+    /// Mutexes · lock protects a critical section around shared state access.
+    /// </summary>
+    public static void MutexCriticalSection(Canvas c)
+    {
+        c.CellBox(0, 18, "Lock()", w: 56, h: 22);
+        c.Frame(64, 8, 110, 44, label: "critical section");
+        c.CellBox(74, 22, "count++", w: 88, h: 20, soft: true);
+        c.CellBox(182, 18, "Unlock()", w: 66, h: 22);
+        c.ClosedArrow(58, 29, 62, 29);
+        c.ClosedArrow(176, 29, 180, 29, emphasis: true);
+    }
+
+    /// <summary>
+    /// Number parsing · string input parses to numeric values or parse errors.
+    /// </summary>
+    public static void NumberParseFlow(Canvas c)
+    {
+        c.ObjectBox(0, 10, "input", "\"42.7\"", w: 74, h: 30, tagPosition: "inside");
+        c.CellBox(90, 14, "Parse", w: 56, h: 22);
+        c.ObjectBox(164, 0, "ok", "42", w: 54, h: 28, tagPosition: "inside");
+        c.ObjectBox(164, 34, "err", "format", w: 54, h: 28, tagPosition: "inside");
+        c.ClosedArrow(76, 25, 88, 25);
+        c.ClosedArrow(148, 25, 162, 14, emphasis: true);
+        c.ClosedArrow(148, 25, 162, 48);
+    }
+
+    /// <summary>
+    /// Panic and recover · panic unwinds stack frames until recover intercepts
+    /// control in a deferred handler.
+    /// </summary>
+    public static void PanicRecoverStack(Canvas c)
+    {
+        c.CellBox(0, 10, "panic()", w: 70, h: 20, soft: true);
+        c.CellBox(0, 34, "frame B", w: 70, h: 20);
+        c.CellBox(0, 58, "frame A", w: 70, h: 20);
+        c.Dashed(84, 72, 84, 16);
+        c.ClosedArrow(84, 16, 84, 8, emphasis: true);
+        c.CellBox(108, 22, "recover()", w: 82, h: 24);
+    }
+
+    /// <summary>
+    /// Range over built-in types · iterating a string yields index/rune pairs.
+    /// </summary>
+    public static void RangeRunes(Canvas c)
+    {
+        c.Tag(0, 6, "\"Go!\"");
+        c.Cells(0, 12, new[] { "G", "o", "!" }, w: 28, h: 24);
+        c.Tag(0, 44, "i=0");
+        c.Tag(28, 44, "i=1");
+        c.Tag(56, 44, "i=2");
+        c.Dot(42, 8, emphasis: true);
+    }
+
     // ── Registry ───────────────────────────────────────────────────────────
 
     /// <summary>
@@ -491,6 +704,22 @@ public static class Figures
             ["url-parts"]           = (UrlParts,           270,  36),
             ["json-serialize"]      = (JsonSerialize,      236,  52),
             ["format-placeholders"] = (FormatPlaceholders, 200,  86),
+            ["atomic-counter-sync"] = (AtomicCounterSync,  210,  78),
+            ["base64-roundtrip"]    = (Base64Roundtrip,    296,  44),
+            ["channel-directions"]  = (ChannelDirections,  240,  42),
+            ["channel-sync"]        = (ChannelSync,        190,  84),
+            ["channel-close-range"] = (ChannelCloseRange,  202,  60),
+            ["cli-args-slice"]      = (CliArgsSlice,       134,  48),
+            ["cli-flags-parse"]     = (CliFlagsParse,      204,  42),
+            ["context-cancel-tree"] = (ContextCancelTree,  200,  78),
+            ["custom-error-fields"] = (CustomErrorFields,  210,  86),
+            ["env-key-values"]      = (EnvKeyValues,       184,  44),
+            ["epoch-offset"]        = (EpochOffset,        222,  56),
+            ["structured-log-entry"]= (StructuredLogEntry, 218,  68),
+            ["mutex-critical"]      = (MutexCriticalSection, 250, 54),
+            ["number-parse-flow"]   = (NumberParseFlow,    220,  64),
+            ["panic-recover-stack"] = (PanicRecoverStack,  192,  82),
+            ["range-runes"]         = (RangeRunes,          86,  50),
         };
 
     /// <summary>

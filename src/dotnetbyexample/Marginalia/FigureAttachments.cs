@@ -240,6 +240,118 @@ public static class FigureAttachments
                     "format-placeholders",
                     "An interpolated string embeds expression placeholders directly in the string literal; at runtime each placeholder is replaced by the value of its expression."),
             },
+            ["atomic-counters"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "atomic-counter-sync",
+                    "Atomic increments coordinate concurrent updates to one shared counter value without race conditions by applying each increment as an indivisible operation."),
+            },
+            ["base64-encoding"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "base64-roundtrip",
+                    "Base64 encoding maps binary bytes to printable text and decoding reverses it; together they preserve the original byte sequence exactly."),
+            },
+            ["channel-directions"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "channel-directions",
+                    "Directional channel parameters restrict capabilities at compile time: send-only parameters can only send and receive-only parameters can only receive."),
+            },
+            ["channel-synchronization"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "channel-sync",
+                    "A completion channel lets one goroutine signal another when work is done, giving explicit synchronization without shared mutable state."),
+            },
+            ["closing-channels"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "channel-close-range",
+                    "Closing a channel signals no more values will be sent; a range loop continues until buffered values are drained, then terminates cleanly."),
+            },
+            ["command-line-arguments"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "cli-args-slice",
+                    "Command-line arguments are exposed as an ordered string array where index 0 is the executable name and later indexes are user-provided arguments."),
+            },
+            ["command-line-flags"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "cli-flags-parse",
+                    "Defined flags carry defaults that are overridden by parsed command-line values, producing a final runtime configuration."),
+            },
+            ["context"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "context-cancel-tree",
+                    "Derived contexts form a tree rooted at a parent; cancelling a parent context propagates cancellation to all descendant contexts."),
+            },
+            ["custom-errors"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "custom-error-fields",
+                    "A custom error type can carry structured fields (like argument name and message) while still satisfying the error interface."),
+            },
+            ["environment-variables"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "env-key-values",
+                    "Environment variables are process-scoped key/value strings read at runtime to configure behaviour without recompiling."),
+            },
+            ["epoch"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "epoch-offset",
+                    "Unix time represents the current instant as an offset from the epoch (1970-01-01T00:00:00Z), typically measured in seconds."),
+            },
+            ["logging"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "structured-log-entry",
+                    "Structured logging records named fields such as level, timestamp, and message so entries can be filtered and queried reliably."),
+            },
+            ["mutexes"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "mutex-critical",
+                    "A mutex enforces exclusive access to a critical section: lock before shared-state mutation and unlock immediately after."),
+            },
+            ["number-parsing"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "number-parse-flow",
+                    "Parsing converts numeric text into typed numbers on success, or returns a parse error path when the input format is invalid."),
+            },
+            ["panic"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "panic-recover-stack",
+                    "A panic unwinds stack frames; deferred functions run during unwinding and recover can intercept the panic to resume control."),
+            },
+            ["range-over-built-in-types"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "range-runes",
+                    "Ranging over a string yields index/rune pairs, iterating logical characters rather than raw bytes."),
+            },
         };
 
     /// <summary>

@@ -12,31 +12,31 @@ A figure is added by:
 
 ## Progress
 
-30 of 84 examples have figures (54 remaining).
+46 of 84 examples have figures (38 remaining).
 
 | Example | Figure | Status |
 |---|---|---|
 | `arrays` | `array-index` | ✅ done |
-| `atomic-counters` | — | ⬜ todo |
-| `base64-encoding` | — | ⬜ todo |
+| `atomic-counters` | `atomic-counter-sync` | ✅ done |
+| `base64-encoding` | `base64-roundtrip` | ✅ done |
 | `channel-buffering` | — | ⬜ todo |
-| `channel-directions` | — | ⬜ todo |
-| `channel-synchronization` | — | ⬜ todo |
+| `channel-directions` | `channel-directions` | ✅ done |
+| `channel-synchronization` | `channel-sync` | ✅ done |
 | `channels` | `channel-buffer` | ✅ done |
-| `closing-channels` | — | ⬜ todo |
+| `closing-channels` | `channel-close-range` | ✅ done |
 | `closures` | `closure-cell` | ✅ done |
-| `command-line-arguments` | — | ⬜ todo |
-| `command-line-flags` | — | ⬜ todo |
+| `command-line-arguments` | `cli-args-slice` | ✅ done |
+| `command-line-flags` | `cli-flags-parse` | ✅ done |
 | `command-line-subcommands` | — | ⬜ todo |
 | `constants` | `const-value` | ✅ done |
-| `context` | — | ⬜ todo |
-| `custom-errors` | — | ⬜ todo |
+| `context` | `context-cancel-tree` | ✅ done |
+| `custom-errors` | `custom-error-fields` | ✅ done |
 | `defer` | `lifo-defer` | ✅ done |
 | `directories` | — | ⬜ todo |
 | `embed-directive` | — | ⬜ todo |
 | `enums` | `enum-values` | ✅ done |
-| `environment-variables` | — | ⬜ todo |
-| `epoch` | — | ⬜ todo |
+| `environment-variables` | `env-key-values` | ✅ done |
+| `epoch` | `epoch-offset` | ✅ done |
 | `errors` | `exception-flow` | ✅ done |
 | `execing-processes` | — | ⬜ todo |
 | `exit` | — | ⬜ todo |
@@ -52,17 +52,17 @@ A figure is added by:
 | `interfaces` | `interface-contract` | ✅ done |
 | `json` | `json-serialize` | ✅ done |
 | `line-filters` | — | ⬜ todo |
-| `logging` | — | ⬜ todo |
+| `logging` | `structured-log-entry` | ✅ done |
 | `maps` | `map-entries` | ✅ done |
 | `methods` | `method-slots` | ✅ done |
 | `multiple-return-values` | `multi-return` | ✅ done |
-| `mutexes` | — | ⬜ todo |
+| `mutexes` | `mutex-critical` | ✅ done |
 | `non-blocking-channel-operations` | — | ⬜ todo |
-| `number-parsing` | — | ⬜ todo |
-| `panic` | — | ⬜ todo |
+| `number-parsing` | `number-parse-flow` | ✅ done |
+| `panic` | `panic-recover-stack` | ✅ done |
 | `pointers` | `ref-alias` | ✅ done |
 | `random-numbers` | — | ⬜ todo |
-| `range-over-built-in-types` | — | ⬜ todo |
+| `range-over-built-in-types` | `range-runes` | ✅ done |
 | `range-over-channels` | — | ⬜ todo |
 | `range-over-iterators` | — | ⬜ todo |
 | `rate-limiting` | — | ⬜ todo |
@@ -109,19 +109,19 @@ Good candidates for the next set of figures:
 
 | Example | Suggested figure concept |
 |---|---|
-| `atomic-counters` | A counter value incremented by two concurrent goroutines with a sync marker |
-| `base64-encoding` | A byte sequence encoded to a base-64 string and decoded back |
-| `channel-directions` | A channel parameter labelled send-only vs receive-only |
-| `channel-synchronization` | A goroutine signalling completion to the main goroutine via a channel |
-| `closing-channels` | A channel being closed; range terminates automatically |
-| `command-line-arguments` | `os.Args` slice with program name at index 0 and arguments following |
-| `command-line-flags` | Defined flags with name, default, and parsed value |
-| `context` | A context tree with cancellation propagating downward |
-| `custom-errors` | A custom error type with extra fields beyond the message string |
-| `environment-variables` | OS environment key/value pairs read at startup |
-| `epoch` | Unix epoch at time zero and the current timestamp offset from it |
-| `logging` | A structured log entry showing level, timestamp, and message fields |
-| `mutexes` | A mutex guarding shared state: lock → read/write → unlock |
-| `number-parsing` | A string input parsed to int and float with an error path |
-| `panic` | Panic unwinds the call stack until a recover catches it |
-| `range-over-built-in-types` | Range over a string yielding rune index pairs |
+| `channel-buffering` | A buffered channel with capacity markers filling and draining |
+| `command-line-subcommands` | A root command dispatching to named subcommands |
+| `directories` | A directory tree with parent and child folder nodes |
+| `embed-directive` | A source file embedding static assets into a binary |
+| `execing-processes` | Current process replaced by a new executable image |
+| `exit` | Program control flow terminating with an exit status code |
+| `file-paths` | A path split into directory, filename, and extension components |
+| `http-client` | A request/response roundtrip between client and server |
+| `http-server` | Listener accepting requests and returning responses |
+| `line-filters` | stdin lines transformed and emitted to stdout |
+| `non-blocking-channel-operations` | Select with default path for immediate fallback |
+| `random-numbers` | RNG source producing different values each call |
+| `range-over-channels` | Consumer ranging over values until channel close |
+| `range-over-iterators` | Iterator yielding sequence values into a range loop |
+| `rate-limiting` | Token/tick stream gating request processing |
+| `reading-files` | File bytes read from disk into memory buffer |
