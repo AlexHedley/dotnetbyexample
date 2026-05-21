@@ -472,6 +472,61 @@ focal point of the diagram.
 
 ---
 
+## Gallery — figures added in v3
+
+Four additional figures covering `arrays`, `switch`, `functions`, and
+`multiple-return-values`.
+
+### `arrays` — ArrayIndex
+
+A five-cell row labelled with values `{1,2,3,4,5}`.  An orange dot above the
+last cell marks the element being accessed by `b[4]`; a small label below
+confirms the value `= 5`.
+
+```csharp
+["array-index"] = (ArrayIndex, 155, 52),
+```
+
+![arrays example page showing the array-index figure banner](figure-arrays.png)
+
+### `switch` — SwitchCases
+
+A switch-value box at the top with three fanning-out arrows to three outcome
+boxes.  The orange arrow on the centre arm (`case 2`) highlights the matching
+branch when `i = 2`.
+
+```csharp
+["switch-cases"] = (SwitchCases, 205, 84),
+```
+
+![switch example page showing the switch-cases figure banner](figure-switch.png)
+
+### `functions` — FunctionCall
+
+A call box on the left with an orange arrow pointing at a typed result box on
+the right, annotated `returns int`.  Shows that a function takes arguments and
+hands back one return value.
+
+```csharp
+["function-call"] = (FunctionCall, 200, 62),
+```
+
+![functions example page showing the function-call figure banner](figure-functions.png)
+
+### `multiple-return-values` — MultiReturn
+
+A single `Vals()` call box fans out to two stacked `int` result boxes.  The
+orange arrow on the lower result emphasises that both values are produced by
+the one call and deconstructed by the caller.
+
+```csharp
+["multi-return"] = (MultiReturn, 175, 72),
+```
+
+![multiple-return-values example page showing the multi-return figure banner](figure-multiple-return-values.png)
+
+---
+
 ## Reference — existing figures
 
 | Figure name | Paint method | Canvas (w×h) | Attached to |
@@ -487,6 +542,10 @@ focal point of the diagram.
 | `map-entries` | `MapEntries` | 180 × 70 | `maps` |
 | `slice-window` | `SliceWindow` | 150 × 54 | `slices` |
 | `ref-alias` | `RefAlias` | 165 × 66 | `pointers` |
+| `array-index` | `ArrayIndex` | 155 × 52 | `arrays` |
+| `switch-cases` | `SwitchCases` | 205 × 84 | `switch` |
+| `function-call` | `FunctionCall` | 200 × 62 | `functions` |
+| `multi-return` | `MultiReturn` | 175 × 72 | `multiple-return-values` |
 
 ---
 

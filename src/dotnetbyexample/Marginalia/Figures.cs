@@ -176,6 +176,73 @@ public static class Figures
         c.Label(ox + 4, 12, "shared");
     }
 
+    /// <summary>
+    /// Arrays · elements are stored in a fixed-length sequence accessed by zero-based index.
+    /// </summary>
+    public static void ArrayIndex(Canvas c)
+    {
+        c.Tag(0, 6, "int[] b = {1,2,3,4,5}");
+        c.Cells(0, 14, new[] { "1", "2", "3", "4", "5" }, w: 28, h: 24);
+        // Orange dot above cell index 4 — the element being accessed
+        c.Dot(4 * 28 + 14, 10, emphasis: true);
+        c.Label(4 * 28 + 4, 46, "b[4] = 5");
+    }
+
+    /// <summary>
+    /// Switch · a switch value is tested against each case; the matching arm runs.
+    /// </summary>
+    public static void SwitchCases(Canvas c)
+    {
+        // Switch-value box centered at top
+        c.CellBox(70, 2, "i = 2", w: 60, h: 22);
+
+        // Three outcome boxes
+        c.CellBox(0, 54, "one", w: 56, h: 22);
+        c.CellBox(72, 54, "two", w: 56, h: 22);
+        c.CellBox(144, 54, "three", w: 56, h: 22);
+
+        // Arrows from condition bottom-center to each case
+        c.ClosedArrow(100, 24, 28, 54);
+        c.ClosedArrow(100, 24, 100, 54, emphasis: true);  // i == 2 matches
+        c.ClosedArrow(100, 24, 172, 54);
+
+        // Case labels above the outcome boxes
+        c.Tag(4, 50, "case 1");
+        c.Tag(76, 50, "case 2");
+        c.Tag(148, 50, "case 3");
+    }
+
+    /// <summary>
+    /// Functions · calling a function passes arguments and receives a return value.
+    /// </summary>
+    public static void FunctionCall(Canvas c)
+    {
+        // Function call box
+        c.CellBox(0, 10, "Plus(1, 2)", w: 100, h: 26);
+        // Return value box
+        c.ObjectBox(138, 2, "int", "3", w: 60, h: 42, tagPosition: "inside");
+        // Arrow showing the return — emphasis marks the result as the key concept
+        c.ClosedArrow(102, 23, 136, 23, emphasis: true);
+        c.Label(106, 56, "returns int");
+    }
+
+    /// <summary>
+    /// Multiple return values · a tuple return lets one call yield several results.
+    /// </summary>
+    public static void MultiReturn(Canvas c)
+    {
+        // Function box left-center
+        c.CellBox(0, 20, "Vals()", w: 70, h: 26);
+
+        // Two return-value boxes stacked on the right
+        c.ObjectBox(112, 4, "int", "3", w: 60, h: 28, tagPosition: "inside");
+        c.ObjectBox(112, 38, "int", "7", w: 60, h: 28, tagPosition: "inside");
+
+        // Two arrows fanning out from the right edge of Vals()
+        c.ClosedArrow(72, 28, 110, 18);
+        c.ClosedArrow(72, 36, 110, 52, emphasis: true);
+    }
+
     // ── Registry ───────────────────────────────────────────────────────────
 
     /// <summary>
@@ -196,6 +263,10 @@ public static class Figures
             ["map-entries"]   = (MapEntries,    180, 70),
             ["slice-window"]  = (SliceWindow,   150, 54),
             ["ref-alias"]     = (RefAlias,      165, 66),
+            ["array-index"]   = (ArrayIndex,    155, 52),
+            ["switch-cases"]  = (SwitchCases,   205, 84),
+            ["function-call"] = (FunctionCall,  200, 62),
+            ["multi-return"]  = (MultiReturn,   175, 72),
         };
 
     /// <summary>

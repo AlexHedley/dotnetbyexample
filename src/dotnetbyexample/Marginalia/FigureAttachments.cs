@@ -100,6 +100,34 @@ public static class FigureAttachments
                     "ref-alias",
                     "A ref parameter is an alias — both the caller's variable and the parameter name point at the same storage location, so writes inside the method are visible outside."),
             },
+            ["arrays"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "array-index",
+                    "An array is a fixed-length sequence of elements; each element is stored at a zero-based index and accessed in constant time."),
+            },
+            ["switch"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "switch-cases",
+                    "A switch tests one value against every case label in turn; exactly one matching arm executes, and unmatched arms are skipped entirely."),
+            },
+            ["functions"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "function-call",
+                    "Calling a function passes arguments in and receives a return value out; the caller resumes with that value once the function returns."),
+            },
+            ["multiple-return-values"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "multi-return",
+                    "A tuple return lets a single function call hand back several values at once; the caller deconstructs them with var (a, b) = …"),
+            },
         };
 
     /// <summary>
