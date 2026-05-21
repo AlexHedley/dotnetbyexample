@@ -243,6 +243,214 @@ public static class Figures
         c.ClosedArrow(72, 36, 110, 52, emphasis: true);
     }
 
+    /// <summary>
+    /// Hello world · Console.WriteLine emits text to standard output.
+    /// </summary>
+    public static void HelloWorldPrint(Canvas c)
+    {
+        c.CellBox(0, 10, "Console.WriteLine", w: 130, h: 24);
+        c.ObjectBox(158, 2, "stdout", "\"Hello, World!\"", w: 110, h: 40, tagPosition: "inside");
+        c.ClosedArrow(132, 22, 156, 22, emphasis: true);
+    }
+
+    /// <summary>
+    /// Constants · a const is baked in at compile time; no memory slot is
+    /// allocated at runtime.
+    /// </summary>
+    public static void ConstValue(Canvas c)
+    {
+        c.Tag(0, 6, "const · compile-time");
+        c.CellBox(0, 12, "MaxScore = 100", w: 140, h: 24, soft: true);
+        c.Label(148, 18, "no memory");
+        c.Label(148, 30, "slot at runtime");
+    }
+
+    /// <summary>
+    /// Enums · each named member maps to a fixed underlying integer value.
+    /// </summary>
+    public static void EnumValues(Canvas c)
+    {
+        c.Tag(0, 6, "ServerState");
+        c.ObjectBox(0,  12, "0", "Idle",   w: 60, h: 28, tagPosition: "inside");
+        c.ObjectBox(64, 12, "1", "Normal", w: 60, h: 28, tagPosition: "inside");
+        c.ObjectBox(128,12, "2", "Error",  w: 60, h: 28, tagPosition: "inside");
+    }
+
+    /// <summary>
+    /// Methods · a struct bundles fields and methods into one named type.
+    /// </summary>
+    public static void MethodSlots(Canvas c)
+    {
+        c.Frame(0, 0, 180, 90, label: "Rect");
+        c.Tag(10, 18, "fields");
+        c.CellBox(10, 24, "w=3", w: 70, h: 20);
+        c.CellBox(94, 24, "h=4", w: 70, h: 20);
+        c.Tag(10, 56, "methods");
+        c.CellBox(10, 62, "Area()", w: 70, h: 22, soft: true);
+        c.CellBox(94, 62, "Perim()", w: 70, h: 22, soft: true);
+    }
+
+    /// <summary>
+    /// Interfaces · multiple concrete types satisfy one shared interface contract.
+    /// </summary>
+    public static void InterfaceContract(Canvas c)
+    {
+        c.Frame(50, 0, 120, 24, label: "IShape");
+        c.CellBox(52, 2, "Area() float64", w: 116, h: 20);
+        c.CellBox(0,  62, "Rect",   w: 90, h: 24);
+        c.CellBox(130,62, "Circle", w: 90, h: 24);
+        c.ClosedArrow(45, 62, 95, 26);
+        c.ClosedArrow(175, 62, 125, 26, emphasis: true);
+        c.Label(2,   56, "implements");
+        c.Label(132, 56, "implements");
+    }
+
+    /// <summary>
+    /// Errors · the normal path returns a value; an exception routes to catch.
+    /// </summary>
+    public static void ExceptionFlow(Canvas c)
+    {
+        c.CellBox(60, 0, "try { … }", w: 90, h: 22);
+        c.CellBox(0,  62, "return ok",  w: 80, h: 22);
+        c.CellBox(130,62, "catch { … }", w: 80, h: 22);
+        c.ClosedArrow(80,  22, 40,  62);
+        c.ClosedArrow(130, 22, 170, 62, emphasis: true);
+        c.Label(4,   56, "no throw");
+        c.Label(132, 56, "exception");
+    }
+
+    /// <summary>
+    /// Generics · a single generic type is instantiated with different type
+    /// arguments at each use site.
+    /// </summary>
+    public static void GenericBox(Canvas c)
+    {
+        c.Frame(55, 0, 100, 24, label: "Stack<T>");
+        c.CellBox(57, 2, "T", w: 96, h: 20);
+        c.CellBox(0,   58, "Stack<int>",    w: 96, h: 24);
+        c.CellBox(114, 58, "Stack<string>", w: 96, h: 24);
+        c.ClosedArrow(48,  58, 90,  26);
+        c.ClosedArrow(162, 58, 120, 26, emphasis: true);
+    }
+
+    /// <summary>
+    /// Sorting · a list of unsorted elements becomes ordered after the sort call.
+    /// </summary>
+    public static void SortBeforeAfter(Canvas c)
+    {
+        c.Tag(0, 6, "before");
+        c.Cells(0, 12, new[] { "3", "1", "4", "2" }, w: 28, h: 24);
+        c.ClosedArrow(56, 42, 56, 54, emphasis: true);
+        c.Tag(0, 58, "after · sorted");
+        c.Cells(0, 64, new[] { "1", "2", "3", "4" }, w: 28, h: 24);
+    }
+
+    /// <summary>
+    /// Variadic functions · individual arguments collapse into a single params
+    /// array inside the callee.
+    /// </summary>
+    public static void ParamsArray(Canvas c)
+    {
+        c.Tag(0, 6, "arguments");
+        c.CellBox(0, 12, "1", w: 30, h: 24);
+        c.CellBox(36, 12, "2", w: 30, h: 24);
+        c.CellBox(72, 12, "3", w: 30, h: 24);
+        c.ClosedArrow(106, 24, 126, 24, emphasis: true);
+        c.Tag(134, 6, "params int[]");
+        c.Cells(134, 12, new[] { "1", "2", "3" }, w: 26, h: 24);
+    }
+
+    /// <summary>
+    /// Defer · deferred calls are pushed onto a stack and run LIFO when the
+    /// enclosing function returns.
+    /// </summary>
+    public static void LifoDefer(Canvas c)
+    {
+        c.Tag(16, 6, "registered (LIFO)");
+        c.CellBox(16, 12, "Open(file)",      w: 140, h: 20);
+        c.CellBox(16, 36, "Start(timer)",    w: 140, h: 20);
+        c.CellBox(16, 60, "Lock(mutex) · first", w: 140, h: 20, soft: true);
+        c.Dashed(4, 80, 4, 30);
+        c.ClosedArrow(4, 30, 4, 20, emphasis: true);
+    }
+
+    /// <summary>
+    /// Goroutines · two goroutines run concurrently on separate execution lanes
+    /// with no guaranteed ordering between them.
+    /// </summary>
+    public static void GoroutineLanes(Canvas c)
+    {
+        c.Tag(0, 6, "goroutine A");
+        c.Stroke(0, 20, 210, 20);
+        c.CellBox(20, 8, "f()", w: 50, h: 24);
+        c.Tag(0, 42, "goroutine B");
+        c.Stroke(0, 56, 210, 56);
+        c.CellBox(80, 44, "f()", w: 50, h: 24, soft: true);
+        c.Label(0, 72, "concurrent — no fixed order");
+    }
+
+    /// <summary>
+    /// Channels · a buffered channel decouples producer and consumer; the buffer
+    /// absorbs bursts up to its capacity.
+    /// </summary>
+    public static void ChannelBuffer(Canvas c)
+    {
+        c.CellBox(0, 14, "send", w: 50, h: 26);
+        c.Tag(64, 4, "channel buf=3");
+        c.Cells(64, 10, new[] { "A", "B", "_" }, w: 28, h: 26);
+        c.CellBox(162, 14, "recv", w: 50, h: 26);
+        c.ClosedArrow(52, 27, 62, 27);
+        c.ClosedArrow(150, 27, 160, 27, emphasis: true);
+    }
+
+    /// <summary>
+    /// Timers · a timer fires a single tick event when the deadline is reached.
+    /// </summary>
+    public static void TimerTick(Canvas c)
+    {
+        c.Tag(0, 8, "time");
+        c.Register(0, 18, 200);
+        c.Dot(160, 18, emphasis: true);
+        c.Hairline(160, 18, 160, 36);
+        c.Tag(138, 40, "tick event");
+    }
+
+    /// <summary>
+    /// URL parsing · a URL is decomposed into scheme, host, path, and query.
+    /// </summary>
+    public static void UrlParts(Canvas c)
+    {
+        c.ObjectBox(0,   6, "scheme", "https",       w: 60, h: 28, tagPosition: "inside");
+        c.ObjectBox(64,  6, "host",   "example.com", w: 90, h: 28, tagPosition: "inside");
+        c.ObjectBox(158, 6, "path",   "/foo",        w: 52, h: 28, tagPosition: "inside");
+        c.ObjectBox(214, 6, "query",  "q=1",         w: 52, h: 28, tagPosition: "inside");
+    }
+
+    /// <summary>
+    /// JSON · a C# object is serialised to a JSON string and can be deserialised
+    /// back to an equivalent object.
+    /// </summary>
+    public static void JsonSerialize(Canvas c)
+    {
+        c.Frame(0, 4, 96, 46, label: "C# object");
+        c.CellBox(8, 20, "Name=Bob", w: 80, h: 20);
+        c.ClosedArrow(98, 27, 118, 27, emphasis: true);
+        c.Frame(120, 4, 112, 46, label: "JSON");
+        c.CellBox(128, 20, "{\"Name\":\"Bob\"}", w: 96, h: 20);
+    }
+
+    /// <summary>
+    /// String formatting · placeholders in a format string are replaced with
+    /// the corresponding argument values at runtime.
+    /// </summary>
+    public static void FormatPlaceholders(Canvas c)
+    {
+        c.CellBox(0, 0, "$\"Hello, {name}!\"", w: 160, h: 24, soft: true);
+        c.ObjectBox(90, 40, "string", "\"World\"", w: 80, h: 28, tagPosition: "inside");
+        c.ClosedArrow(118, 24, 128, 38, emphasis: true);
+        c.Label(0, 82, "→ \"Hello, World!\"");
+    }
+
     // ── Registry ───────────────────────────────────────────────────────────
 
     /// <summary>
@@ -266,7 +474,23 @@ public static class Figures
             ["array-index"]   = (ArrayIndex,    155, 52),
             ["switch-cases"]  = (SwitchCases,   205, 84),
             ["function-call"] = (FunctionCall,  200, 62),
-            ["multi-return"]  = (MultiReturn,   175, 72),
+            ["multi-return"]        = (MultiReturn,        175,  72),
+            ["console-writeline"]   = (HelloWorldPrint,    272,  46),
+            ["const-value"]         = (ConstValue,         240,  42),
+            ["enum-values"]         = (EnumValues,         195,  42),
+            ["method-slots"]        = (MethodSlots,        180,  90),
+            ["interface-contract"]  = (InterfaceContract,  220,  90),
+            ["exception-flow"]      = (ExceptionFlow,      212,  88),
+            ["generic-box"]         = (GenericBox,         212,  84),
+            ["sort-before-after"]   = (SortBeforeAfter,    115,  92),
+            ["params-array"]        = (ParamsArray,        215,  42),
+            ["lifo-defer"]          = (LifoDefer,          168,  88),
+            ["goroutine-lanes"]     = (GoroutineLanes,     215,  76),
+            ["channel-buffer"]      = (ChannelBuffer,      215,  42),
+            ["timer-tick"]          = (TimerTick,          205,  46),
+            ["url-parts"]           = (UrlParts,           270,  36),
+            ["json-serialize"]      = (JsonSerialize,      236,  52),
+            ["format-placeholders"] = (FormatPlaceholders, 200,  86),
         };
 
     /// <summary>
