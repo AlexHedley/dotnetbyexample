@@ -72,6 +72,34 @@ public static class FigureAttachments
                     "struct-fields",
                     "A struct groups named, typed fields into a single record; each field holds its own value independently."),
             },
+            ["if-else"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "if-else-branch",
+                    "An if/else evaluates a condition and routes execution to exactly one branch; the false branch runs when the condition is not satisfied."),
+            },
+            ["maps"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "map-entries",
+                    "A Dictionary maps each key to one value; looking up a missing key returns a zero value by default, or false from TryGetValue."),
+            },
+            ["slices"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "slice-window",
+                    "GetRange returns a new list containing the elements from the given start index for the given count, leaving the original list unchanged."),
+            },
+            ["pointers"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "ref-alias",
+                    "A ref parameter is an alias — both the caller's variable and the parameter name point at the same storage location, so writes inside the method are visible outside."),
+            },
         };
 
     /// <summary>

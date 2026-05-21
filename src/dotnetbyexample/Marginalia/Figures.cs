@@ -111,6 +111,71 @@ public static class Figures
         c.ClosedArrow(nx2 + 2, ny2, ox2 - 2, oy2, emphasis: true);
     }
 
+    /// <summary>
+    /// If/else · a condition routes execution to one of two branches.
+    /// </summary>
+    public static void IfElseBranch(Canvas c)
+    {
+        // Condition box across the top
+        c.CellBox(60, 2, "num < 10?", w: 100, h: 22);
+
+        // Outcome boxes
+        c.CellBox(10, 56, "1 digit", w: 80, h: 22);
+        c.CellBox(130, 56, "multiple", w: 80, h: 22);
+
+        // Branch arrows from bottom of condition to top of each outcome
+        c.ClosedArrow(95, 24, 50, 56);
+        c.ClosedArrow(125, 24, 170, 56, emphasis: true);
+
+        // Branch labels
+        c.Label(32, 50, "true");
+        c.Label(152, 50, "false");
+    }
+
+    /// <summary>
+    /// Maps · a dictionary maps each key to a value; TryGetValue is the safe lookup.
+    /// </summary>
+    public static void MapEntries(Canvas c)
+    {
+        c.Tag(24, -2, "key");
+        c.Tag(138, -2, "value");
+
+        // Row 1
+        c.ObjectBox(0, 0, "string", "\"k1\"", w: 90, h: 28, tagPosition: "inside");
+        c.ObjectBox(120, 0, "int", "7", w: 60, h: 28, tagPosition: "inside");
+        c.ClosedArrow(92, 14, 118, 14);
+
+        // Row 2 (emphasis — the lookup value is the key concept)
+        c.ObjectBox(0, 38, "string", "\"k2\"", w: 90, h: 28, tagPosition: "inside");
+        c.ObjectBox(120, 38, "int", "13", w: 60, h: 28, tagPosition: "inside");
+        c.ClosedArrow(92, 52, 118, 52, emphasis: true);
+    }
+
+    /// <summary>
+    /// Slices · GetRange returns a contiguous sub-view starting at a given index.
+    /// </summary>
+    public static void SliceWindow(Canvas c)
+    {
+        c.Tag(0, 6, "GetRange(1, 2)");
+        c.Cells(0, 14, new[] { "a", "b", "c", "d", "e" }, w: 28, h: 24);
+        // Orange dot above cell index 1 (x = 1*28 + 14 = 42) — start of sub-view
+        c.Dot(42, 10, emphasis: true);
+        c.Label(28, 46, "→ [b, c]");
+    }
+
+    /// <summary>
+    /// Pointers · a ref parameter creates an alias — both names share one object.
+    /// </summary>
+    public static void RefAlias(Canvas c)
+    {
+        var (nx1, ny1) = c.NameBox(0, 4, "i");
+        var (nx2, ny2) = c.NameBox(0, 38, "iptr");
+        var (ox, oy) = c.ObjectBox(90, 16, "int", "1", w: 70, h: 28, tagPosition: "inside");
+        c.ClosedArrow(nx1 + 2, ny1, ox - 2, oy);
+        c.ClosedArrow(nx2 + 2, ny2, ox - 2, oy, emphasis: true);
+        c.Label(ox + 4, 12, "shared");
+    }
+
     // ── Registry ───────────────────────────────────────────────────────────
 
     /// <summary>
@@ -127,6 +192,10 @@ public static class Figures
             ["variables-bind"]= (VariablesBind, 180, 44),
             ["for-loop"]      = (ForLoop,       210, 46),
             ["struct-fields"] = (StructFields,  206, 96),
+            ["if-else-branch"]= (IfElseBranch,  220, 82),
+            ["map-entries"]   = (MapEntries,    180, 70),
+            ["slice-window"]  = (SliceWindow,   150, 54),
+            ["ref-alias"]     = (RefAlias,      165, 66),
         };
 
     /// <summary>

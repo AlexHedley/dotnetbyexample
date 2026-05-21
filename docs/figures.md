@@ -417,6 +417,61 @@ the last code section and the runner output:
 
 ---
 
+## Gallery — figures added in v2
+
+Four additional figures were added to cover the `if-else`, `maps`, `slices`,
+and `pointers` examples.
+
+### `if-else` — IfElseBranch
+
+A condition box at the top with two branching arrows pointing to the `true`
+and `false` outcome boxes.  The emphasis (orange) arrow highlights the `false`
+branch to draw attention to the else path.
+
+```csharp
+["if-else-branch"] = (IfElseBranch, 220, 82),
+```
+
+![if-else example page showing the branching figure banner](figure-if-else.png)
+
+### `maps` — MapEntries
+
+Two key→value pairs using `ObjectBox` for both sides.  Column tags `KEY` and
+`VALUE` sit above the rows.  The orange arrow on the second pair emphasises
+that every lookup yields one value.
+
+```csharp
+["map-entries"] = (MapEntries, 180, 70),
+```
+
+![maps example page showing the key-value figure banner](figure-maps.png)
+
+### `slices` — SliceWindow
+
+A row of five cells (following the `ForLoop` pattern) with an orange dot above
+cell index 1 — the start of the `GetRange(1, 2)` sub-view — and a label
+naming the result.
+
+```csharp
+["slice-window"] = (SliceWindow, 150, 54),
+```
+
+![slices example page showing the sub-slice figure banner](figure-slices.png)
+
+### `pointers` — RefAlias
+
+Two `NameBox` entries (`i` and `iptr`) with arrows converging on a single
+`ObjectBox`.  The orange arrow on `iptr` makes the aliasing relationship the
+focal point of the diagram.
+
+```csharp
+["ref-alias"] = (RefAlias, 165, 66),
+```
+
+![pointers example page showing the ref-alias figure banner](figure-pointers.png)
+
+---
+
 ## Reference — existing figures
 
 | Figure name | Paint method | Canvas (w×h) | Attached to |
@@ -428,6 +483,10 @@ the last code section and the runner output:
 | `variables-bind` | `VariablesBind` | 180 × 44 | `variables` |
 | `for-loop` | `ForLoop` | 210 × 46 | `for` |
 | `struct-fields` | `StructFields` | 206 × 96 | `structs` |
+| `if-else-branch` | `IfElseBranch` | 220 × 82 | `if-else` |
+| `map-entries` | `MapEntries` | 180 × 70 | `maps` |
+| `slice-window` | `SliceWindow` | 150 × 54 | `slices` |
+| `ref-alias` | `RefAlias` | 165 × 66 | `pointers` |
 
 ---
 
