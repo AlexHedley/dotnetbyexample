@@ -170,6 +170,7 @@ public static void ForLoop(Canvas c)
     // Label: range end
     c.Tag(0, 48, "range(4)");
     c.Label(0 + 4 * 28 + 6, 22, "exhausted → stop");
+    // ^ x = start(0) + four cells(4×28=112) + 6-unit gap = 118
 }
 ```
 
@@ -321,6 +322,101 @@ italic muted text.
 
 ---
 
+## Full worked example — `struct-fields`
+
+This second example walks through adding a `struct-fields` figure to the
+`structs` example page.  It demonstrates using `Frame`, `NameBox`, `ObjectBox`,
+and `ClosedArrow` together to picture a record type.
+
+### What does the `structs` example show?
+
+A struct groups named, typed fields into a single composite value.  The key
+mental model: a `Person` is a labelled container holding two independent slots
+— `Name` (string) and `Age` (int) — each of which can be read or updated by
+name.
+
+### The figure plan
+
+```
+ ┌─ Person ──────────────────────────────┐
+ │                                       │
+ │  ┌────────┐       ┌─────────────────┐ │
+ │  │  Name  │  ──►  │ STRING  "Bob"   │ │
+ │  └────────┘       └─────────────────┘ │
+ │                                       │
+ │  ┌────────┐      →┌─────────────────┐ │
+ │  │  Age   │  ──►  │ INT     20      │ │ ← emphasis arrow
+ │  └────────┘       └─────────────────┘ │
+ │                                       │
+ └───────────────────────────────────────┘
+```
+
+A `Frame` wraps the whole struct; `NameBox` shows each field name; `ObjectBox`
+shows the type tag and value; `ClosedArrow` connects them.  The orange arrow
+highlights the `Age` field to draw the reader's attention to the value-type
+nature of the field.
+
+### Step 1 — Paint function (add to `Figures.cs`)
+
+```csharp
+/// <summary>
+/// Structs · a struct groups named, typed fields into a single record.
+/// </summary>
+public static void StructFields(Canvas c)
+{
+    // Outer frame labelled with the type name
+    c.Frame(0, 0, 206, 96, label: "Person");
+
+    // Row 1 — Name field
+    var (nx1, ny1) = c.NameBox(10, 19, "Name");
+    var (ox1, oy1) = c.ObjectBox(nx1 + 14, 14, "string", "\"Bob\"", w: 80, h: 34, tagPosition: "inside");
+    c.ClosedArrow(nx1 + 2, ny1, ox1 - 2, oy1);
+
+    // Row 2 — Age field (emphasis arrow)
+    var (nx2, ny2) = c.NameBox(10, 59, "Age");
+    var (ox2, oy2) = c.ObjectBox(nx2 + 14, 54, "int", "20", w: 80, h: 34, tagPosition: "inside");
+    c.ClosedArrow(nx2 + 2, ny2, ox2 - 2, oy2, emphasis: true);
+}
+```
+
+**Sizing note:** Using `tagPosition: "inside"` with `h: 34` leaves the type
+tag 10 units from the top of the box and the mono value centred at 21 units
+in — enough breathing room for both labels.  Aligning `NameBox(y: 19)` at
+`y_obj + (h - NameH) / 2 = 14 + 5 = 19` makes the name box vertically centred
+on the object box, so arrows come out perfectly horizontal.
+
+### Step 2 — Registry entry (add to `Figures.Registry` in `Figures.cs`)
+
+```csharp
+["struct-fields"] = (StructFields, 206, 96),
+```
+
+### Step 3 — Attachment (add to `FigureAttachments.Attachments` in `FigureAttachments.cs`)
+
+```csharp
+["structs"] = new[]
+{
+    new FigureAttachment(
+        "after-last",
+        "struct-fields",
+        "A struct groups named, typed fields into a single record; each field holds its own value independently."),
+},
+```
+
+### Step 4 — Run and inspect
+
+```bash
+dotnet run --project src/dotnetbyexample/
+# open site/structs.html
+```
+
+The generated page looks like this, with the figure banner appearing between
+the last code section and the runner output:
+
+![structs example page showing the Person struct figure banner](figure-structs.png)
+
+---
+
 ## Reference — existing figures
 
 | Figure name | Paint method | Canvas (w×h) | Attached to |
@@ -331,6 +427,7 @@ italic muted text.
 | `closure-cell` | `ClosureCell` | 240 × 120 | `closures` |
 | `variables-bind` | `VariablesBind` | 180 × 44 | `variables` |
 | `for-loop` | `ForLoop` | 210 × 46 | `for` |
+| `struct-fields` | `StructFields` | 206 × 96 | `structs` |
 
 ---
 

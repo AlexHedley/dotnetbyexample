@@ -92,6 +92,25 @@ public static class Figures
         c.Label(118, 26, "← stop here");
     }
 
+    /// <summary>
+    /// Structs · a struct groups named, typed fields into a single record.
+    /// </summary>
+    public static void StructFields(Canvas c)
+    {
+        // Outer frame labelled with the type name
+        c.Frame(0, 0, 206, 96, label: "Person");
+
+        // Row 1 — Name field
+        var (nx1, ny1) = c.NameBox(10, 19, "Name");
+        var (ox1, oy1) = c.ObjectBox(nx1 + 14, 14, "string", "\"Bob\"", w: 80, h: 34, tagPosition: "inside");
+        c.ClosedArrow(nx1 + 2, ny1, ox1 - 2, oy1);
+
+        // Row 2 — Age field (emphasis arrow)
+        var (nx2, ny2) = c.NameBox(10, 59, "Age");
+        var (ox2, oy2) = c.ObjectBox(nx2 + 14, 54, "int", "20", w: 80, h: 34, tagPosition: "inside");
+        c.ClosedArrow(nx2 + 2, ny2, ox2 - 2, oy2, emphasis: true);
+    }
+
     // ── Registry ───────────────────────────────────────────────────────────
 
     /// <summary>
@@ -107,6 +126,7 @@ public static class Figures
             ["closure-cell"]  = (ClosureCell,   240, 120),
             ["variables-bind"]= (VariablesBind, 180, 44),
             ["for-loop"]      = (ForLoop,       210, 46),
+            ["struct-fields"] = (StructFields,  206, 96),
         };
 
     /// <summary>

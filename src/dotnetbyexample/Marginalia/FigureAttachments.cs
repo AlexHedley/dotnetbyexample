@@ -65,6 +65,13 @@ public static class FigureAttachments
                     "for-loop",
                     "A for loop advances a counter through each value in the range one step at a time; the loop stops automatically when the range is exhausted."),
             },
+            ["structs"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "struct-fields",
+                    "A struct groups named, typed fields into a single record; each field holds its own value independently."),
+            },
         };
 
     /// <summary>
