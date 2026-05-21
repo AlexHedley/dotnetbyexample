@@ -720,7 +720,227 @@ public static class Figures
             ["number-parse-flow"]   = (NumberParseFlow,    220,  64),
             ["panic-recover-stack"] = (PanicRecoverStack,  192,  82),
             ["range-runes"]         = (RangeRunes,          86,  50),
+            ["channel-buffering-cap"] = (ChannelBuffering,  200,  54),
+            ["cli-subcommands"]       = (CliSubcommands,    154,  92),
+            ["directory-tree"]        = (DirectoryTree,     180, 108),
+            ["embed-directive"]       = (EmbedDirective,    218,  58),
+            ["exec-process"]          = (ExecProcess,       228,  54),
+            ["exit-status"]           = (ExitStatus,        180,  54),
+            ["file-path-parts"]       = (FilePathParts,     190,  44),
+            ["http-client-roundtrip"] = (HttpClientRoundtrip, 218, 48),
+            ["http-server-listener"]  = (HttpServerListener, 240, 60),
+            ["line-filter"]           = (LineFilter,        270,  44),
+            ["non-blocking-select"]   = (NonBlockingSelect, 174,  64),
+            ["random-numbers"]        = (RandomNumbers,     200,  54),
+            ["range-over-channels"]   = (RangeOverChannels, 256,  44),
+            ["range-iterator"]        = (RangeIterator,     180,  56),
+            ["rate-limiter"]          = (RateLimiter,       202,  66),
+            ["read-file-buffer"]      = (ReadFileBuffer,    186,  60),
         };
+
+    // ── Batch 3 paint methods ───────────────────────────────────────────────
+
+    /// <summary>
+    /// Channel buffering · producer fills the buffer; consumer drains it.
+    /// </summary>
+    public static void ChannelBuffering(Canvas c)
+    {
+        c.CellBox(0, 14, "send", w: 50, h: 26);
+        c.Tag(64, 4, "buf = 3");
+        c.Cells(64, 10, new[] { "A", "B", "C" }, w: 28, h: 26);
+        c.CellBox(162, 14, "recv", w: 50, h: 26);
+        c.ClosedArrow(52, 27, 62, 27);
+        c.ClosedArrow(150, 27, 160, 27, emphasis: true);
+        c.Tag(56, 44, "full → no block");
+    }
+
+    /// <summary>
+    /// Command-line subcommands · a root dispatcher routes to named sub-commands.
+    /// </summary>
+    public static void CliSubcommands(Canvas c)
+    {
+        c.CellBox(0, 34, "app", w: 48, h: 24);
+        c.CellBox(86, 4, "create", w: 66, h: 24, soft: true);
+        c.CellBox(86, 34, "delete", w: 66, h: 24, soft: true);
+        c.CellBox(86, 64, "list",   w: 66, h: 24);
+        c.ClosedArrow(50, 46, 84, 16, emphasis: true);
+        c.ClosedArrow(50, 46, 84, 46);
+        c.ClosedArrow(50, 46, 84, 76);
+    }
+
+    /// <summary>
+    /// Directories · a tree of parent and child directory nodes.
+    /// </summary>
+    public static void DirectoryTree(Canvas c)
+    {
+        c.Node(90, 10, "/");
+        c.Node(30, 52, "src");
+        c.Node(150, 52, "docs");
+        c.Stroke(90, 28, 30, 52);
+        c.Stroke(90, 28, 150, 52);
+        c.Node(10, 94, "main.cs");
+        c.Stroke(30, 70, 10, 94);
+    }
+
+    /// <summary>
+    /// Embed directive · source-embedded assets are compiled into the binary.
+    /// </summary>
+    public static void EmbedDirective(Canvas c)
+    {
+        c.Frame(0, 0, 96, 56, label: "source");
+        c.CellBox(8, 16, "//go:embed", w: 80, h: 20, soft: true);
+        c.CellBox(8, 38, "static/*",   w: 80, h: 14);
+        c.ClosedArrow(98, 28, 118, 28, emphasis: true);
+        c.Frame(120, 0, 96, 56, label: "binary");
+        c.CellBox(128, 16, "index.html", w: 80, h: 20);
+        c.CellBox(128, 38, "app.css",    w: 80, h: 14);
+    }
+
+    /// <summary>
+    /// Execing processes · the current process image is replaced by a new one.
+    /// </summary>
+    public static void ExecProcess(Canvas c)
+    {
+        c.CellBox(0, 14, "current process", w: 112, h: 24);
+        c.ClosedArrow(114, 26, 134, 26, emphasis: true);
+        c.CellBox(136, 14, "new process", w: 88, h: 24);
+        c.Tag(48, 44, "replaced — same PID");
+    }
+
+    /// <summary>
+    /// Exit · program terminates with an integer status code.
+    /// </summary>
+    public static void ExitStatus(Canvas c)
+    {
+        c.CellBox(0, 8, "program", w: 70, h: 24);
+        c.ClosedArrow(72, 20, 92, 20, emphasis: true);
+        c.ObjectBox(94, 8, "exit code", "0", w: 82, h: 30, tagPosition: "inside");
+        c.Label(0, 44, "0 = success  ≠ 0 = error");
+    }
+
+    /// <summary>
+    /// File paths · a path decomposed into directory, base name, and extension.
+    /// </summary>
+    public static void FilePathParts(Canvas c)
+    {
+        c.ObjectBox(0,   6, "dir",  "src/", w: 64, h: 28, tagPosition: "inside");
+        c.ObjectBox(68,  6, "base", "app",  w: 60, h: 28, tagPosition: "inside");
+        c.ObjectBox(132, 6, "ext",  ".go",  w: 56, h: 28, tagPosition: "inside");
+        c.Tag(0, 42, "src/app.go");
+    }
+
+    /// <summary>
+    /// HTTP client · a client sends a request and receives a response.
+    /// </summary>
+    public static void HttpClientRoundtrip(Canvas c)
+    {
+        c.CellBox(0, 12, "client", w: 60, h: 24);
+        c.CellBox(156, 12, "server", w: 60, h: 24);
+        c.ClosedArrow(62, 20, 154, 20, emphasis: true);
+        c.ClosedArrow(154, 28, 62, 28);
+        c.Tag(76, 10, "GET /path");
+        c.Tag(76, 32, "200 OK");
+    }
+
+    /// <summary>
+    /// HTTP server · a listener accepts incoming connections and dispatches to handlers.
+    /// </summary>
+    public static void HttpServerListener(Canvas c)
+    {
+        c.CellBox(0, 20, "client", w: 56, h: 24);
+        c.CellBox(170, 4,  "handler A", w: 68, h: 22);
+        c.CellBox(170, 34, "handler B", w: 68, h: 22, soft: true);
+        c.Frame(140, 0, 98, 58, label: "mux");
+        c.ClosedArrow(58, 26, 138, 16, emphasis: true);
+        c.ClosedArrow(58, 28, 138, 46);
+    }
+
+    /// <summary>
+    /// Line filters · stdin lines are transformed and written to stdout.
+    /// </summary>
+    public static void LineFilter(Canvas c)
+    {
+        c.ObjectBox(0, 8, "stdin", "line", w: 66, h: 28, tagPosition: "inside");
+        c.ClosedArrow(68, 22, 88, 22, emphasis: true);
+        c.CellBox(90, 10, "transform", w: 80, h: 24);
+        c.ClosedArrow(172, 22, 192, 22, emphasis: true);
+        c.ObjectBox(194, 8, "stdout", "line", w: 74, h: 28, tagPosition: "inside");
+    }
+
+    /// <summary>
+    /// Non-blocking channels · a select with a default case falls through
+    /// immediately when no channel is ready.
+    /// </summary>
+    public static void NonBlockingSelect(Canvas c)
+    {
+        c.CellBox(0, 20, "select", w: 56, h: 24);
+        c.CellBox(90, 4, "case <-ch", w: 82, h: 24);
+        c.CellBox(90, 36, "default",   w: 82, h: 24, soft: true);
+        c.ClosedArrow(58, 32, 88, 16, emphasis: true);
+        c.ClosedArrow(58, 32, 88, 48);
+        c.Tag(66, 10, "ready");
+        c.Tag(66, 54, "not ready");
+    }
+
+    /// <summary>
+    /// Random numbers · a seeded RNG produces different values on each call.
+    /// </summary>
+    public static void RandomNumbers(Canvas c)
+    {
+        c.CellBox(0, 8, "rand.New(seed)", w: 120, h: 24);
+        c.ClosedArrow(122, 20, 142, 20, emphasis: true);
+        c.Cells(144, 8, new[] { "7", "42", "13" }, w: 28, h: 24);
+        c.Label(0, 42, "different each call");
+    }
+
+    /// <summary>
+    /// Range over channels · range reads until the channel is closed.
+    /// </summary>
+    public static void RangeOverChannels(Canvas c)
+    {
+        c.CellBox(0, 14, "producer", w: 70, h: 24);
+        c.Tag(90, 4, "ch (closed)");
+        c.Cells(90, 10, new[] { "1", "2", "·" }, w: 28, h: 24);
+        c.CellBox(182, 14, "range ch", w: 70, h: 24);
+        c.ClosedArrow(72, 26, 88, 26);
+        c.ClosedArrow(172, 26, 180, 26, emphasis: true);
+    }
+
+    /// <summary>
+    /// Range over iterators · a custom iterator yields values into a range loop.
+    /// </summary>
+    public static void RangeIterator(Canvas c)
+    {
+        c.CellBox(0, 8, "iterator", w: 72, h: 24);
+        c.ClosedArrow(74, 20, 94, 20, emphasis: true);
+        c.Cells(96, 8, new[] { "a", "b", "c" }, w: 28, h: 24);
+        c.Tag(96, 40, "range loop body");
+    }
+
+    /// <summary>
+    /// Rate limiting · a ticker gates request processing to a fixed rate.
+    /// </summary>
+    public static void RateLimiter(Canvas c)
+    {
+        c.CellBox(0, 0, "requests", w: 70, h: 24);
+        c.Tag(0, 30, "rate limiter");
+        c.Register(0, 40, 200);
+        c.Dot(40, 40, emphasis: true);
+        c.Dot(100, 40);
+        c.Dot(160, 40);
+        c.Tag(0, 58, "process one per tick");
+    }
+
+    /// <summary>
+    /// Reading files · file bytes are read from disk into a memory buffer.
+    /// </summary>
+    public static void ReadFileBuffer(Canvas c)
+    {
+        c.ObjectBox(0, 8, "disk", "file.txt", w: 80, h: 30, tagPosition: "inside");
+        c.ClosedArrow(82, 23, 102, 23, emphasis: true);
+        c.ObjectBox(104, 8, "buffer", "[]byte", w: 80, h: 30, tagPosition: "inside");
+        c.Label(0, 48, "ReadAllBytes → in memory");
+    }
 
     /// <summary>
     /// Render a named figure to an SVG string. Returns an empty string if the

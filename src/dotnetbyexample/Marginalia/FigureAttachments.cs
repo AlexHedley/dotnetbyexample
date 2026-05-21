@@ -352,6 +352,118 @@ public static class FigureAttachments
                     "range-runes",
                     "Ranging over a string yields index/rune pairs, iterating logical characters rather than raw bytes."),
             },
+            ["channel-buffering"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "channel-buffering-cap",
+                    "A buffered channel holds up to its capacity without blocking the sender; the consumer reads whenever it is ready, decoupling the two sides."),
+            },
+            ["command-line-subcommands"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "cli-subcommands",
+                    "Subcommands let a single binary expose distinct operations; the root dispatcher inspects the first argument and routes to the matching handler."),
+            },
+            ["directories"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "directory-tree",
+                    "Directories form a tree; each node is either a folder containing children or a file at a leaf."),
+            },
+            ["embed-directive"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "embed-directive",
+                    "The embed directive bundles static files into the compiled binary so they can be read at runtime without referencing the file system."),
+            },
+            ["execing-processes"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "exec-process",
+                    "Exec replaces the current process image with a new executable; the same OS process (and PID) continues running the new program."),
+            },
+            ["exit"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "exit-status",
+                    "Calling os.Exit terminates the program and returns a numeric status code to the shell; zero conventionally means success, any other value means failure."),
+            },
+            ["file-paths"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "file-path-parts",
+                    "A file path can be split into its directory prefix, base name, and extension, each of which can be manipulated independently."),
+            },
+            ["http-client"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "http-client-roundtrip",
+                    "An HTTP client sends a request to a server and blocks until a response is returned; the response carries a status code and optional body."),
+            },
+            ["http-server"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "http-server-listener",
+                    "An HTTP server listens for incoming connections and dispatches each request to a registered handler based on the request path."),
+            },
+            ["line-filters"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "line-filter",
+                    "A line filter reads lines from stdin, applies a transformation to each, and writes the result to stdout — composable with other shell tools."),
+            },
+            ["non-blocking-channel-operations"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "non-blocking-select",
+                    "A select with a default clause returns immediately when no channel is ready, allowing the caller to poll without blocking."),
+            },
+            ["random-numbers"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "random-numbers",
+                    "A random number generator seeded from a source produces a different sequence of values on every run."),
+            },
+            ["range-over-channels"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "range-over-channels",
+                    "Ranging over a channel reads values one by one until the channel is closed; closing signals the consumer that no more data will arrive."),
+            },
+            ["range-over-iterators"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "range-iterator",
+                    "A custom iterator function yields successive values into a range loop body, keeping iteration logic separate from the consuming code."),
+            },
+            ["rate-limiting"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "rate-limiter",
+                    "A rate limiter uses a ticker to release one token per interval, ensuring requests are processed no faster than the allowed rate."),
+            },
+            ["reading-files"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "read-file-buffer",
+                    "Reading a file loads its bytes from disk into a memory buffer; the whole content is then available without further I/O."),
+            },
         };
 
     /// <summary>

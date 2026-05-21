@@ -12,14 +12,14 @@ A figure is added by:
 
 ## Progress
 
-46 of 84 examples have figures (38 remaining).
+62 of 84 examples have figures (22 remaining).
 
 | Example | Figure | Status |
 |---|---|---|
 | `arrays` | `array-index` | ✅ done |
 | `atomic-counters` | `atomic-counter-sync` | ✅ done |
 | `base64-encoding` | `base64-roundtrip` | ✅ done |
-| `channel-buffering` | — | ⬜ todo |
+| `channel-buffering` | `channel-buffering-cap` | ✅ done |
 | `channel-directions` | `channel-directions` | ✅ done |
 | `channel-synchronization` | `channel-sync` | ✅ done |
 | `channels` | `channel-buffer` | ✅ done |
@@ -27,46 +27,46 @@ A figure is added by:
 | `closures` | `closure-cell` | ✅ done |
 | `command-line-arguments` | `cli-args-slice` | ✅ done |
 | `command-line-flags` | `cli-flags-parse` | ✅ done |
-| `command-line-subcommands` | — | ⬜ todo |
+| `command-line-subcommands` | `cli-subcommands` | ✅ done |
 | `constants` | `const-value` | ✅ done |
 | `context` | `context-cancel-tree` | ✅ done |
 | `custom-errors` | `custom-error-fields` | ✅ done |
 | `defer` | `lifo-defer` | ✅ done |
-| `directories` | — | ⬜ todo |
-| `embed-directive` | — | ⬜ todo |
+| `directories` | `directory-tree` | ✅ done |
+| `embed-directive` | `embed-directive` | ✅ done |
 | `enums` | `enum-values` | ✅ done |
 | `environment-variables` | `env-key-values` | ✅ done |
 | `epoch` | `epoch-offset` | ✅ done |
 | `errors` | `exception-flow` | ✅ done |
-| `execing-processes` | — | ⬜ todo |
-| `exit` | — | ⬜ todo |
-| `file-paths` | — | ⬜ todo |
+| `execing-processes` | `exec-process` | ✅ done |
+| `exit` | `exit-status` | ✅ done |
+| `file-paths` | `file-path-parts` | ✅ done |
 | `for` | `for-loop` | ✅ done |
 | `functions` | `function-call` | ✅ done |
 | `generics` | `generic-box` | ✅ done |
 | `goroutines` | `goroutine-lanes` | ✅ done |
 | `hello-world` | `console-writeline` | ✅ done |
-| `http-client` | — | ⬜ todo |
-| `http-server` | — | ⬜ todo |
+| `http-client` | `http-client-roundtrip` | ✅ done |
+| `http-server` | `http-server-listener` | ✅ done |
 | `if-else` | `if-else-branch` | ✅ done |
 | `interfaces` | `interface-contract` | ✅ done |
 | `json` | `json-serialize` | ✅ done |
-| `line-filters` | — | ⬜ todo |
+| `line-filters` | `line-filter` | ✅ done |
 | `logging` | `structured-log-entry` | ✅ done |
 | `maps` | `map-entries` | ✅ done |
 | `methods` | `method-slots` | ✅ done |
 | `multiple-return-values` | `multi-return` | ✅ done |
 | `mutexes` | `mutex-critical` | ✅ done |
-| `non-blocking-channel-operations` | — | ⬜ todo |
+| `non-blocking-channel-operations` | `non-blocking-select` | ✅ done |
 | `number-parsing` | `number-parse-flow` | ✅ done |
 | `panic` | `panic-recover-stack` | ✅ done |
 | `pointers` | `ref-alias` | ✅ done |
-| `random-numbers` | — | ⬜ todo |
+| `random-numbers` | `random-numbers` | ✅ done |
 | `range-over-built-in-types` | `range-runes` | ✅ done |
-| `range-over-channels` | — | ⬜ todo |
-| `range-over-iterators` | — | ⬜ todo |
-| `rate-limiting` | — | ⬜ todo |
-| `reading-files` | — | ⬜ todo |
+| `range-over-channels` | `range-over-channels` | ✅ done |
+| `range-over-iterators` | `range-iterator` | ✅ done |
+| `rate-limiting` | `rate-limiter` | ✅ done |
+| `reading-files` | `read-file-buffer` | ✅ done |
 | `recover` | — | ⬜ todo |
 | `recursion` | `call-stack` | ✅ done |
 | `regular-expressions` | — | ⬜ todo |
@@ -109,19 +109,25 @@ Good candidates for the next set of figures:
 
 | Example | Suggested figure concept |
 |---|---|
-| `channel-buffering` | A buffered channel with capacity markers filling and draining |
-| `command-line-subcommands` | A root command dispatching to named subcommands |
-| `directories` | A directory tree with parent and child folder nodes |
-| `embed-directive` | A source file embedding static assets into a binary |
-| `execing-processes` | Current process replaced by a new executable image |
-| `exit` | Program control flow terminating with an exit status code |
-| `file-paths` | A path split into directory, filename, and extension components |
-| `http-client` | A request/response roundtrip between client and server |
-| `http-server` | Listener accepting requests and returning responses |
-| `line-filters` | stdin lines transformed and emitted to stdout |
-| `non-blocking-channel-operations` | Select with default path for immediate fallback |
-| `random-numbers` | RNG source producing different values each call |
-| `range-over-channels` | Consumer ranging over values until channel close |
-| `range-over-iterators` | Iterator yielding sequence values into a range loop |
-| `rate-limiting` | Token/tick stream gating request processing |
-| `reading-files` | File bytes read from disk into memory buffer |
+| `recover` | Stack unwind intercepted by a deferred recover call |
+| `regular-expressions` | Pattern matched against input with capture groups highlighted |
+| `select` | Select chooses the first ready channel out of several |
+| `sha256-hashes` | Input bytes hashed to a fixed-length digest |
+| `signals` | OS signal delivered to the process and handled in a goroutine |
+| `sorting-by-functions` | Custom comparator function driving element ordering |
+| `spawning-processes` | Parent process spawning a child and reading its output |
+| `stateful-goroutines` | State owned by one goroutine; channels carry read/write requests |
+| `string-functions` | Common string operations (Contains, Split, Replace) visualised |
+| `strings-and-runes` | String bytes vs decoded rune code points |
+| `struct-embedding` | Embedded struct fields promoted to the outer type |
+| `temp-files-and-directories` | Temp file created in the OS temp dir and cleaned up |
+| `testing-and-benchmarking` | Test function green-path vs failure path; benchmark loop |
+| `text-templates` | Template with action blocks rendered with data to output text |
+| `tickers` | Ticker firing repeated events on a fixed interval |
+| `time` | Time value with year/month/day/clock fields |
+| `time-formatting-parsing` | A time value formatted to a string and parsed back |
+| `timeouts` | A channel receive with a timeout via select |
+| `waitgroups` | WaitGroup counter counting goroutines; Done decrements; Wait blocks |
+| `worker-pools` | Fixed pool of workers consuming from a job channel |
+| `writing-files` | In-memory bytes written to a file on disk |
+| `xml` | C# object serialised to an XML element and deserialised back |
