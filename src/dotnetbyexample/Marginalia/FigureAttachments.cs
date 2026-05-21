@@ -464,6 +464,160 @@ public static class FigureAttachments
                     "read-file-buffer",
                     "Reading a file loads its bytes from disk into a memory buffer; the whole content is then available without further I/O."),
             },
+            ["recover"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "recover-flow",
+                    "A deferred recover call can intercept a panic while the stack unwinds, allowing control flow to continue with fallback handling."),
+            },
+            ["regular-expressions"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "regex-captures",
+                    "Regular-expression matching applies a pattern to input text and can extract capture groups for later processing."),
+            },
+            ["select"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "select-race",
+                    "Select waits on multiple channel operations and executes whichever case becomes ready first."),
+            },
+            ["sha256-hashes"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "sha256-digest",
+                    "SHA256 deterministically transforms input bytes into a fixed-length 32-byte digest for integrity checks."),
+            },
+            ["signals"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "signal-channel",
+                    "OS signals can be routed into a channel so a goroutine can handle interrupts and shutdown events cooperatively."),
+            },
+            ["sorting-by-functions"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "sort-comparator",
+                    "A custom comparator function defines ordering rules, letting sort operations arrange values by domain-specific criteria."),
+            },
+            ["spawning-processes"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "spawn-process-pipe",
+                    "A parent process can spawn a child command, then stream the child's stdout/stderr through pipes."),
+            },
+            ["stateful-goroutines"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "stateful-owner",
+                    "A single owner goroutine encapsulates mutable state; other goroutines interact only via request/reply channels."),
+            },
+            ["string-functions"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "string-ops",
+                    "String helpers such as Split and Replace derive new values from an input string without mutating the original."),
+            },
+            ["strings-and-runes"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "string-rune-bytes",
+                    "A string is UTF-8 encoded bytes; ranging/decoding yields rune values that represent Unicode code points."),
+            },
+            ["struct-embedding"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "struct-embedding",
+                    "Embedding one struct inside another promotes the embedded fields and methods onto the outer type."),
+            },
+            ["temp-files-and-directories"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "temp-file-lifecycle",
+                    "Temporary paths are created in the OS temp location, used for short-lived work, and then removed during cleanup."),
+            },
+            ["testing-and-benchmarking"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "test-benchmark-flow",
+                    "Tests validate correctness with assertions, while benchmarks repeatedly execute code to measure performance metrics."),
+            },
+            ["text-templates"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "text-template-render",
+                    "A text template combines static text and actions with input data to render final output."),
+            },
+            ["tickers"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "ticker-stream",
+                    "A ticker emits periodic events on a channel at a fixed interval until stopped."),
+            },
+            ["time"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "time-fields",
+                    "A time value contains date and clock fields that can be read for formatting, comparisons, and scheduling logic."),
+            },
+            ["time-formatting-parsing"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "time-format-parse",
+                    "Formatting converts a time value to text using a layout, and parsing reconstructs a time value from that text."),
+            },
+            ["timeouts"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "timeout-select",
+                    "Timeouts are implemented by selecting between a work channel and a timer channel to avoid waiting indefinitely."),
+            },
+            ["waitgroups"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "waitgroup-counter",
+                    "A WaitGroup counter tracks running goroutines; Done decrements it and Wait blocks until the counter reaches zero."),
+            },
+            ["worker-pools"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "worker-pool",
+                    "A fixed set of worker goroutines consume jobs from a shared queue and emit results concurrently."),
+            },
+            ["writing-files"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "write-file-buffer",
+                    "Writing files persists bytes from memory to disk so data remains available after process exit."),
+            },
+            ["xml"] = new[]
+            {
+                new FigureAttachment(
+                    "after-last",
+                    "xml-roundtrip",
+                    "XML serialization maps object fields to elements/attributes and can deserialize the document back into objects."),
+            },
         };
 
     /// <summary>

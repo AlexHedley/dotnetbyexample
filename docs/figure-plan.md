@@ -12,7 +12,7 @@ A figure is added by:
 
 ## Progress
 
-62 of 84 examples have figures (22 remaining).
+84 of 84 examples have figures (0 remaining).
 
 | Example | Figure | Status |
 |---|---|---|
@@ -67,67 +67,42 @@ A figure is added by:
 | `range-over-iterators` | `range-iterator` | ✅ done |
 | `rate-limiting` | `rate-limiter` | ✅ done |
 | `reading-files` | `read-file-buffer` | ✅ done |
-| `recover` | — | ⬜ todo |
+| `recover` | `recover-flow` | ✅ done |
 | `recursion` | `call-stack` | ✅ done |
-| `regular-expressions` | — | ⬜ todo |
-| `select` | — | ⬜ todo |
-| `sha256-hashes` | — | ⬜ todo |
-| `signals` | — | ⬜ todo |
+| `regular-expressions` | `regex-captures` | ✅ done |
+| `select` | `select-race` | ✅ done |
+| `sha256-hashes` | `sha256-digest` | ✅ done |
+| `signals` | `signal-channel` | ✅ done |
 | `slices` | `slice-window` | ✅ done |
 | `sorting` | `sort-before-after` | ✅ done |
-| `sorting-by-functions` | — | ⬜ todo |
-| `spawning-processes` | — | ⬜ todo |
-| `stateful-goroutines` | — | ⬜ todo |
+| `sorting-by-functions` | `sort-comparator` | ✅ done |
+| `spawning-processes` | `spawn-process-pipe` | ✅ done |
+| `stateful-goroutines` | `stateful-owner` | ✅ done |
 | `string-formatting` | `format-placeholders` | ✅ done |
-| `string-functions` | — | ⬜ todo |
-| `strings-and-runes` | — | ⬜ todo |
-| `struct-embedding` | — | ⬜ todo |
+| `string-functions` | `string-ops` | ✅ done |
+| `strings-and-runes` | `string-rune-bytes` | ✅ done |
+| `struct-embedding` | `struct-embedding` | ✅ done |
 | `structs` | `struct-fields` | ✅ done |
 | `switch` | `switch-cases` | ✅ done |
-| `temp-files-and-directories` | — | ⬜ todo |
-| `testing-and-benchmarking` | — | ⬜ todo |
-| `text-templates` | — | ⬜ todo |
-| `tickers` | — | ⬜ todo |
-| `time` | — | ⬜ todo |
-| `time-formatting-parsing` | — | ⬜ todo |
-| `timeouts` | — | ⬜ todo |
+| `temp-files-and-directories` | `temp-file-lifecycle` | ✅ done |
+| `testing-and-benchmarking` | `test-benchmark-flow` | ✅ done |
+| `text-templates` | `text-template-render` | ✅ done |
+| `tickers` | `ticker-stream` | ✅ done |
+| `time` | `time-fields` | ✅ done |
+| `time-formatting-parsing` | `time-format-parse` | ✅ done |
+| `timeouts` | `timeout-select` | ✅ done |
 | `timers` | `timer-tick` | ✅ done |
 | `url-parsing` | `url-parts` | ✅ done |
 | `values` | `number-lines` | ✅ done |
 | `variables` | `variables-bind` | ✅ done |
 | `variadic-functions` | `params-array` | ✅ done |
-| `waitgroups` | — | ⬜ todo |
-| `worker-pools` | — | ⬜ todo |
-| `writing-files` | — | ⬜ todo |
-| `xml` | — | ⬜ todo |
+| `waitgroups` | `waitgroup-counter` | ✅ done |
+| `worker-pools` | `worker-pool` | ✅ done |
+| `writing-files` | `write-file-buffer` | ✅ done |
+| `xml` | `xml-roundtrip` | ✅ done |
 
 ---
 
 ## Suggested next batch
 
-Good candidates for the next set of figures:
-
-| Example | Suggested figure concept |
-|---|---|
-| `recover` | Stack unwind intercepted by a deferred recover call |
-| `regular-expressions` | Pattern matched against input with capture groups highlighted |
-| `select` | Select chooses the first ready channel out of several |
-| `sha256-hashes` | Input bytes hashed to a fixed-length digest |
-| `signals` | OS signal delivered to the process and handled in a goroutine |
-| `sorting-by-functions` | Custom comparator function driving element ordering |
-| `spawning-processes` | Parent process spawning a child and reading its output |
-| `stateful-goroutines` | State owned by one goroutine; channels carry read/write requests |
-| `string-functions` | Common string operations (Contains, Split, Replace) visualised |
-| `strings-and-runes` | String bytes vs decoded rune code points |
-| `struct-embedding` | Embedded struct fields promoted to the outer type |
-| `temp-files-and-directories` | Temp file created in the OS temp dir and cleaned up |
-| `testing-and-benchmarking` | Test function green-path vs failure path; benchmark loop |
-| `text-templates` | Template with action blocks rendered with data to output text |
-| `tickers` | Ticker firing repeated events on a fixed interval |
-| `time` | Time value with year/month/day/clock fields |
-| `time-formatting-parsing` | A time value formatted to a string and parsed back |
-| `timeouts` | A channel receive with a timeout via select |
-| `waitgroups` | WaitGroup counter counting goroutines; Done decrements; Wait blocks |
-| `worker-pools` | Fixed pool of workers consuming from a job channel |
-| `writing-files` | In-memory bytes written to a file on disk |
-| `xml` | C# object serialised to an XML element and deserialised back |
+All examples currently have figure coverage. No additional batch is pending.

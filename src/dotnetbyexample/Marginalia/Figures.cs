@@ -736,6 +736,28 @@ public static class Figures
             ["range-iterator"]        = (RangeIterator,     180,  56),
             ["rate-limiter"]          = (RateLimiter,       202,  66),
             ["read-file-buffer"]      = (ReadFileBuffer,    186,  60),
+            ["recover-flow"]          = (RecoverFlow,       210,  88),
+            ["regex-captures"]        = (RegexCaptures,     260,  54),
+            ["select-race"]           = (SelectRace,        236,  84),
+            ["sha256-digest"]         = (Sha256Digest,      250,  44),
+            ["signal-channel"]        = (SignalChannel,     220,  58),
+            ["sort-comparator"]       = (SortComparator,    210,  88),
+            ["spawn-process-pipe"]    = (SpawnProcessPipe,  260,  58),
+            ["stateful-owner"]        = (StatefulOwner,     260,  88),
+            ["string-ops"]            = (StringOps,         270,  52),
+            ["string-rune-bytes"]     = (StringRuneBytes,   250,  56),
+            ["struct-embedding"]      = (StructEmbedding,   240,  84),
+            ["temp-file-lifecycle"]   = (TempFileLifecycle, 260,  58),
+            ["test-benchmark-flow"]   = (TestBenchmarkFlow, 250,  84),
+            ["text-template-render"]  = (TextTemplateRender, 250, 58),
+            ["ticker-stream"]         = (TickerStream,      220,  58),
+            ["time-fields"]           = (TimeFields,        260,  46),
+            ["time-format-parse"]     = (TimeFormatParse,   276,  50),
+            ["timeout-select"]        = (TimeoutSelect,     238,  84),
+            ["waitgroup-counter"]     = (WaitGroupCounter,  250,  86),
+            ["worker-pool"]           = (WorkerPool,        270,  88),
+            ["write-file-buffer"]     = (WriteFileBuffer,   250,  56),
+            ["xml-roundtrip"]         = (XmlRoundtrip,      272,  56),
         };
 
     // ── Batch 3 paint methods ───────────────────────────────────────────────
@@ -940,6 +962,300 @@ public static class Figures
         c.ClosedArrow(82, 23, 102, 23, emphasis: true);
         c.ObjectBox(104, 8, "buffer", "[]byte", w: 80, h: 30, tagPosition: "inside");
         c.Label(0, 48, "ReadAllBytes → in memory");
+    }
+
+    /// <summary>
+    /// Recover · deferred recover intercepts panic during stack unwinding.
+    /// </summary>
+    public static void RecoverFlow(Canvas c)
+    {
+        c.CellBox(0, 6, "panic()", w: 68, h: 24);
+        c.ClosedArrow(70, 18, 98, 18, emphasis: true);
+        c.CellBox(100, 6, "defer", w: 56, h: 24);
+        c.ClosedArrow(128, 32, 128, 52);
+        c.CellBox(90, 54, "recover()", w: 76, h: 24, soft: true);
+        c.Tag(0, 78, "unwind → intercept");
+    }
+
+    /// <summary>
+    /// Regular expressions · input matched by a pattern with capture groups.
+    /// </summary>
+    public static void RegexCaptures(Canvas c)
+    {
+        c.ObjectBox(0, 8, "pattern", "(\\w+)-(\\d+)", w: 110, h: 28, tagPosition: "inside");
+        c.ClosedArrow(112, 22, 132, 22, emphasis: true);
+        c.ObjectBox(134, 8, "input", "user-42", w: 76, h: 28, tagPosition: "inside");
+        c.Tag(0, 44, "group1=user  group2=42");
+    }
+
+    /// <summary>
+    /// Select · multiple channel cases race; first ready case wins.
+    /// </summary>
+    public static void SelectRace(Canvas c)
+    {
+        c.CellBox(86, 30, "select", w: 60, h: 24);
+        c.CellBox(0, 0, "chA", w: 48, h: 24);
+        c.CellBox(0, 60, "chB", w: 48, h: 24);
+        c.CellBox(188, 0, "chC", w: 48, h: 24);
+        c.ClosedArrow(50, 12, 84, 34, emphasis: true);
+        c.ClosedArrow(50, 72, 84, 50);
+        c.ClosedArrow(186, 12, 148, 34);
+        c.Tag(152, 52, "first ready");
+    }
+
+    /// <summary>
+    /// SHA256 hashes · bytes are transformed into a fixed digest.
+    /// </summary>
+    public static void Sha256Digest(Canvas c)
+    {
+        c.ObjectBox(0, 8, "input", "payload", w: 70, h: 28, tagPosition: "inside");
+        c.ClosedArrow(72, 22, 92, 22, emphasis: true);
+        c.CellBox(94, 10, "SHA256", w: 58, h: 24);
+        c.ClosedArrow(154, 22, 174, 22, emphasis: true);
+        c.ObjectBox(176, 8, "digest", "32 bytes", w: 72, h: 28, tagPosition: "inside");
+    }
+
+    /// <summary>
+    /// Signals · OS signal delivered via channel to handler goroutine.
+    /// </summary>
+    public static void SignalChannel(Canvas c)
+    {
+        c.CellBox(0, 14, "OS", w: 36, h: 24);
+        c.CellBox(184, 14, "handler", w: 66, h: 24);
+        c.Tag(92, 4, "signal channel");
+        c.Cells(90, 10, new[] { "SIGINT" }, w: 60, h: 28);
+        c.ClosedArrow(38, 26, 88, 26, emphasis: true);
+        c.ClosedArrow(152, 26, 182, 26, emphasis: true);
+    }
+
+    /// <summary>
+    /// Sorting by functions · comparator determines ordering decisions.
+    /// </summary>
+    public static void SortComparator(Canvas c)
+    {
+        c.Cells(0, 8, new[] { "3", "1", "2" }, w: 28, h: 24);
+        c.ClosedArrow(92, 20, 122, 20, emphasis: true);
+        c.CellBox(34, 40, "less(i,j)", w: 56, h: 22, soft: true);
+        c.CellBox(124, 8, "sorted", w: 52, h: 24);
+        c.Cells(178, 8, new[] { "1", "2", "3" }, w: 28, h: 24);
+        c.Tag(34, 68, "custom comparison logic");
+    }
+
+    /// <summary>
+    /// Spawning processes · parent starts child and reads its output.
+    /// </summary>
+    public static void SpawnProcessPipe(Canvas c)
+    {
+        c.CellBox(0, 14, "parent", w: 62, h: 24);
+        c.CellBox(196, 14, "child", w: 52, h: 24);
+        c.ClosedArrow(64, 26, 194, 26, emphasis: true);
+        c.Tag(94, 10, "Start()");
+        c.ClosedArrow(194, 34, 64, 34);
+        c.Tag(92, 46, "stdout pipe");
+    }
+
+    /// <summary>
+    /// Stateful goroutines · one owner goroutine serialises state access.
+    /// </summary>
+    public static void StatefulOwner(Canvas c)
+    {
+        c.CellBox(96, 28, "state owner", w: 76, h: 24);
+        c.CellBox(0, 0, "read req", w: 62, h: 22, soft: true);
+        c.CellBox(0, 58, "write req", w: 66, h: 22);
+        c.CellBox(198, 28, "reply", w: 48, h: 22);
+        c.ClosedArrow(64, 12, 94, 34);
+        c.ClosedArrow(68, 70, 94, 46, emphasis: true);
+        c.ClosedArrow(174, 40, 196, 40);
+    }
+
+    /// <summary>
+    /// String functions · common operations produce derived strings.
+    /// </summary>
+    public static void StringOps(Canvas c)
+    {
+        c.ObjectBox(0, 8, "input", "a,b,c", w: 64, h: 28, tagPosition: "inside");
+        c.CellBox(72, 4, "Split", w: 40, h: 20, soft: true);
+        c.CellBox(72, 28, "Replace", w: 52, h: 20, soft: true);
+        c.ClosedArrow(114, 14, 134, 14, emphasis: true);
+        c.ClosedArrow(126, 38, 146, 38, emphasis: true);
+        c.ObjectBox(148, 4, "out1", "[a b c]", w: 62, h: 22, tagPosition: "inside");
+        c.ObjectBox(148, 30, "out2", "a|b|c", w: 62, h: 22, tagPosition: "inside");
+    }
+
+    /// <summary>
+    /// Strings and runes · UTF-8 bytes decode into Unicode runes.
+    /// </summary>
+    public static void StringRuneBytes(Canvas c)
+    {
+        c.ObjectBox(0, 8, "string", "é", w: 44, h: 28, tagPosition: "inside");
+        c.ClosedArrow(46, 22, 74, 22, emphasis: true);
+        c.Cells(76, 8, new[] { "0xC3", "0xA9" }, w: 40, h: 28);
+        c.ClosedArrow(162, 22, 190, 22, emphasis: true);
+        c.ObjectBox(192, 8, "rune", "U+00E9", w: 56, h: 28, tagPosition: "inside");
+    }
+
+    /// <summary>
+    /// Struct embedding · embedded fields are promoted to outer struct.
+    /// </summary>
+    public static void StructEmbedding(Canvas c)
+    {
+        c.Frame(0, 0, 110, 82, label: "inner");
+        c.CellBox(10, 20, "Name", w: 80, h: 20, soft: true);
+        c.CellBox(10, 44, "Age",  w: 80, h: 20, soft: true);
+        c.Frame(130, 0, 110, 82, label: "outer");
+        c.CellBox(140, 20, "Inner", w: 80, h: 20);
+        c.CellBox(140, 44, "Role",  w: 80, h: 20, soft: true);
+        c.ClosedArrow(112, 30, 128, 30, emphasis: true);
+    }
+
+    /// <summary>
+    /// Temp files and directories · create, use, then cleanup temporary paths.
+    /// </summary>
+    public static void TempFileLifecycle(Canvas c)
+    {
+        c.CellBox(0, 14, "TempDir", w: 56, h: 24);
+        c.ClosedArrow(58, 26, 78, 26, emphasis: true);
+        c.CellBox(80, 14, "write", w: 44, h: 24);
+        c.ClosedArrow(126, 26, 146, 26, emphasis: true);
+        c.CellBox(148, 14, "cleanup", w: 58, h: 24);
+        c.Tag(0, 46, "remove on defer");
+    }
+
+    /// <summary>
+    /// Testing and benchmarking · tests assert correctness; benchmarks measure speed.
+    /// </summary>
+    public static void TestBenchmarkFlow(Canvas c)
+    {
+        c.CellBox(0, 4, "test", w: 46, h: 22);
+        c.CellBox(0, 34, "bench", w: 52, h: 22);
+        c.CellBox(90, 4, "assert", w: 52, h: 22, soft: true);
+        c.CellBox(90, 34, "loop N", w: 52, h: 22, soft: true);
+        c.CellBox(186, 4, "pass/fail", w: 62, h: 22);
+        c.CellBox(186, 34, "ns/op", w: 50, h: 22);
+        c.ClosedArrow(48, 15, 88, 15, emphasis: true);
+        c.ClosedArrow(54, 45, 88, 45, emphasis: true);
+        c.ClosedArrow(144, 15, 184, 15);
+        c.ClosedArrow(144, 45, 184, 45);
+    }
+
+    /// <summary>
+    /// Text templates · template text combines with data to render output.
+    /// </summary>
+    public static void TextTemplateRender(Canvas c)
+    {
+        c.ObjectBox(0, 8, "template", "Hello {{.Name}}", w: 92, h: 30, tagPosition: "inside");
+        c.ObjectBox(98, 8, "data", "{Name: Bob}", w: 72, h: 30, tagPosition: "inside");
+        c.ClosedArrow(172, 23, 192, 23, emphasis: true);
+        c.ObjectBox(194, 8, "output", "Hello Bob", w: 54, h: 30, tagPosition: "inside");
+    }
+
+    /// <summary>
+    /// Tickers · periodic ticks delivered on schedule.
+    /// </summary>
+    public static void TickerStream(Canvas c)
+    {
+        c.CellBox(0, 8, "ticker", w: 50, h: 24);
+        c.Register(58, 20, 160);
+        c.Dot(82, 20, emphasis: true);
+        c.Dot(118, 20);
+        c.Dot(154, 20);
+        c.CellBox(170, 8, "ticks", w: 46, h: 24);
+        c.Tag(0, 44, "fixed interval events");
+    }
+
+    /// <summary>
+    /// Time · a timestamp has date and clock components.
+    /// </summary>
+    public static void TimeFields(Canvas c)
+    {
+        c.ObjectBox(0, 8, "Time", "2026-05-21 21:29", w: 110, h: 30, tagPosition: "inside");
+        c.CellBox(120, 4, "year/month/day", w: 90, h: 20, soft: true);
+        c.CellBox(120, 28, "hour:min:sec", w: 82, h: 20, soft: true);
+        c.ClosedArrow(112, 16, 118, 14);
+        c.ClosedArrow(112, 28, 118, 38);
+    }
+
+    /// <summary>
+    /// Time formatting and parsing · time formats to string and parses back.
+    /// </summary>
+    public static void TimeFormatParse(Canvas c)
+    {
+        c.ObjectBox(0, 10, "Time", "now", w: 52, h: 28, tagPosition: "inside");
+        c.ClosedArrow(54, 24, 84, 24, emphasis: true);
+        c.ObjectBox(86, 10, "format", "RFC3339", w: 64, h: 28, tagPosition: "inside");
+        c.ClosedArrow(152, 24, 182, 24, emphasis: true);
+        c.ObjectBox(184, 10, "parse", "Time", w: 52, h: 28, tagPosition: "inside");
+    }
+
+    /// <summary>
+    /// Timeouts · select races work channel against timeout channel.
+    /// </summary>
+    public static void TimeoutSelect(Canvas c)
+    {
+        c.CellBox(90, 30, "select", w: 60, h: 24);
+        c.CellBox(0, 4, "work", w: 52, h: 22);
+        c.CellBox(0, 58, "timeout", w: 60, h: 22, soft: true);
+        c.ClosedArrow(54, 14, 88, 34, emphasis: true);
+        c.ClosedArrow(62, 70, 88, 50);
+        c.CellBox(184, 30, "result", w: 56, h: 24);
+        c.ClosedArrow(152, 42, 182, 42);
+    }
+
+    /// <summary>
+    /// WaitGroups · counter tracks running goroutines until zero.
+    /// </summary>
+    public static void WaitGroupCounter(Canvas c)
+    {
+        c.ObjectBox(96, 0, "wg", "count=3", w: 62, h: 28, tagPosition: "inside");
+        c.CellBox(0, 34, "worker1 Done", w: 72, h: 22);
+        c.CellBox(84, 34, "worker2 Done", w: 72, h: 22);
+        c.CellBox(168, 34, "worker3 Done", w: 72, h: 22);
+        c.ClosedArrow(36, 32, 112, 30, emphasis: true);
+        c.ClosedArrow(120, 32, 126, 30, emphasis: true);
+        c.ClosedArrow(204, 32, 140, 30, emphasis: true);
+        c.Tag(0, 66, "Wait() blocks until count=0");
+    }
+
+    /// <summary>
+    /// Worker pools · fixed workers consume jobs and produce results.
+    /// </summary>
+    public static void WorkerPool(Canvas c)
+    {
+        c.CellBox(0, 32, "jobs", w: 46, h: 24);
+        c.CellBox(96, 0, "w1", w: 32, h: 22);
+        c.CellBox(96, 30, "w2", w: 32, h: 22);
+        c.CellBox(96, 60, "w3", w: 32, h: 22);
+        c.CellBox(220, 32, "results", w: 50, h: 24);
+        c.ClosedArrow(48, 44, 94, 11, emphasis: true);
+        c.ClosedArrow(48, 44, 94, 41);
+        c.ClosedArrow(48, 44, 94, 71);
+        c.ClosedArrow(130, 11, 218, 44);
+        c.ClosedArrow(130, 41, 218, 44, emphasis: true);
+        c.ClosedArrow(130, 71, 218, 44);
+    }
+
+    /// <summary>
+    /// Writing files · bytes in memory are persisted to disk.
+    /// </summary>
+    public static void WriteFileBuffer(Canvas c)
+    {
+        c.ObjectBox(0, 8, "buffer", "[]byte", w: 76, h: 30, tagPosition: "inside");
+        c.ClosedArrow(78, 23, 108, 23, emphasis: true);
+        c.CellBox(110, 10, "WriteAllBytes", w: 82, h: 26);
+        c.ClosedArrow(194, 23, 224, 23, emphasis: true);
+        c.ObjectBox(226, 8, "disk", "file.txt", w: 70, h: 30, tagPosition: "inside");
+    }
+
+    /// <summary>
+    /// XML · objects serialise to XML and parse back.
+    /// </summary>
+    public static void XmlRoundtrip(Canvas c)
+    {
+        c.ObjectBox(0, 8, "object", "Person", w: 62, h: 30, tagPosition: "inside");
+        c.ClosedArrow(64, 23, 94, 23, emphasis: true);
+        c.ObjectBox(96, 8, "xml", "<person/>", w: 74, h: 30, tagPosition: "inside");
+        c.ClosedArrow(172, 23, 202, 23, emphasis: true);
+        c.ObjectBox(204, 8, "object", "Person", w: 62, h: 30, tagPosition: "inside");
     }
 
     /// <summary>
