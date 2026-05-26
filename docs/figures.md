@@ -72,9 +72,11 @@ colours or stroke weights freely.
 | `Emphasis` | `#FF4801` (orange) | **One mark per figure only** — the single most important element |
 | `SoftFill` | `rgba(82,16,0, 0.05)` | Quiet tinted fill for "live" boxes |
 
-> **Emphasis scarcity rule:** use `emphasis: true` on at most one arrow, dot,
-> or cell per figure.  Multiple orange marks break the "this one thing
-> matters" communication.
+> **Emphasis scarcity rule:** use `emphasis: true` sparingly — typically on
+> one mark per figure.  Symmetric or multi-step figures (e.g. a round-trip
+> encode→decode or a two-way signal flow) may use two emphasis marks when both
+> steps are equally important.  Avoid three or more; beyond two the orange
+> loses its "this matters" signal entirely.
 
 ### Drawing primitives
 
@@ -161,16 +163,11 @@ method.  The method receives a `Canvas` and calls drawing methods on it.
 /// </summary>
 public static void ForLoop(Canvas c)
 {
-    // Draw four cells representing the sequence items
-    c.Cells(0, 10, new[] { "0", "1", "2", "3" }, w: 28, h: 24);
-
-    // Draw a dot above the third cell (index 2) as the current position
-    c.Dot(0 + 2 * 28 + 14, 6, emphasis: true);
-
-    // Label: range end
-    c.Tag(0, 48, "range(4)");
-    c.Label(0 + 4 * 28 + 6, 22, "exhausted → stop");
-    // ^ x = start(0) + four cells(4×28=112) + 6-unit gap = 118
+    c.Tag(0, 6, "for i in range(4)");
+    c.Cells(0, 14, new[] { "0", "1", "2", "3" }, w: 28, h: 24);
+    // Orange dot above cell index 2 (x = 2*28 + 14 = 70) marks the current position
+    c.Dot(70, 10, emphasis: true);
+    c.Label(118, 26, "← stop here");
 }
 ```
 
@@ -888,11 +885,10 @@ A root dispatcher box routing to named sub-command boxes based on the first argu
 
 ## Gallery — figures added in v6
 
-Seventeen figures covering `directories`, `embed-directive`, `execing-processes`,
+Fourteen figures covering `directories`, `embed-directive`, `execing-processes`,
 `exit`, `file-paths`, `http-client`, `http-server`, `line-filters`,
 `non-blocking-channel-operations`, `random-numbers`, `range-over-channels`,
-`range-over-iterators`, `rate-limiting`, `reading-files`, and the remaining
-batch-3 examples.
+`range-over-iterators`, `rate-limiting`, and `reading-files`.
 
 ### `directories` — DirectoryTree
 
