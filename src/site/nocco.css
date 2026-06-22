@@ -176,8 +176,6 @@ table td {
 /* https://css-tricks.com/functional-css-tabs-revisited/ */
 .tabs {
 	position: relative;
-	min-height: 500px;
-	/* This part sucks */
 	clear: both;
 	margin: 25px 0;
 }
@@ -205,10 +203,8 @@ table td {
 	left: 0;
 	background: white;
 	right: 0;
-	bottom: 0;
 	padding: 20px;
 	border: 1px solid #ccc;
-	overflow: hidden;
 }
 
 	.content > * {
