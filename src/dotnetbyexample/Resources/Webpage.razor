@@ -64,7 +64,7 @@
                                             @((MarkupString)(file.Value[i].DocsHtml ?? string.Empty))
                                         </td>
                                         <td class="code">
-                                            @if (@file.Value[i].CodeHtml != "" && @file.Value[i].CodeHtml != "\r\n") { <button id="copyscriptbutton-code-@fileIndex-@i" class="copy-code-button" type="button">Copy</button> }
+                                            @if (!string.IsNullOrWhiteSpace(file.Value[i].CodeHtml)) { <button id="copyscriptbutton-code-@fileIndex-@i" class="copy-code-button" type="button" aria-label="Copy code">Copy</button> }
                                             <pre><code class='prettyprint'>@file.Value[i].CodeHtml</code></pre>
                                         </td>
                                     </tr>
@@ -112,7 +112,7 @@
                             @((MarkupString)(Runner[i].DocsHtml ?? string.Empty))
                         </td>
                         <td class="code">
-                            @if (@Runner[i].CodeHtml != "" && @Runner[i].CodeHtml != "\r\n") { <button id="copyscriptbutton-bat-@i" class="copy-code-button" type="button">Copy</button> }
+                            @if (!string.IsNullOrWhiteSpace(Runner[i].CodeHtml)) { <button id="copyscriptbutton-bat-@i" class="copy-code-button" type="button" aria-label="Copy code">Copy</button> }
                             <pre><code class='prettyprint'>@Runner[i].CodeHtml</code></pre>
                         </td>
                     </tr>

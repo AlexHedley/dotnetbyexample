@@ -79,6 +79,9 @@ public class Nocco
     private static List<Section> Parse(string source, string[] lines) {
         var sections = new List<Section>();
         var language = GetLanguage(source);
+        if (language == null)
+            return sections;
+
         var hasCode = false;
         var docsText = new StringBuilder();
         var codeText = new StringBuilder();

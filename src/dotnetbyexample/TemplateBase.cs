@@ -8,7 +8,7 @@ namespace Nocco {
 		public string Title { get; set; } = String.Empty;
         public string PathToCss { get; set; } = String.Empty;
         public string PathToJs { get; set; } = String.Empty;
-        public Func<string, string> GetSourcePath { get; set; }
+        public Func<string, string> GetSourcePath { get; set; } = static _ => string.Empty;
 		public List<Section> Sections { get; set; } = new();
 		public List<string> Sources { get; set; } = new();
 
