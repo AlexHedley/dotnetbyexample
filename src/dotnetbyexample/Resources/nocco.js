@@ -16,3 +16,19 @@ btns.forEach(btn => {
     });
 
 });
+
+// Resize the .tabs container to match the active tab content height
+function updateTabsHeight() {
+    document.querySelectorAll('.tabs').forEach(function(tabs) {
+        var activeContent = tabs.querySelector('[type=radio]:checked ~ label ~ .content');
+        if (activeContent) {
+            tabs.style.minHeight = (28 + activeContent.offsetHeight) + 'px';
+        }
+    });
+}
+
+document.querySelectorAll('.tabs [type=radio]').forEach(function(radio) {
+    radio.addEventListener('change', updateTabsHeight);
+});
+
+window.addEventListener('load', updateTabsHeight);
