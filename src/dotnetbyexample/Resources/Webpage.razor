@@ -9,6 +9,8 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
     <link href="@(PathToCss)" rel="stylesheet" media="all" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet" />
+    <link href="@(PathToAnnotationsCss)" rel="stylesheet" media="all" type="text/css" />
     <script src="@(PathToJs)" type="text/javascript"></script>
 </head>
 <body onload="prettyPrint()">
@@ -94,6 +96,22 @@
             </div>
         }
 
+        @if (ExampleAnnotations.Count > 0)
+        {
+            <section class="annotation-banner" aria-label="Example annotations">
+                @foreach (var (text, note, cssClass, context) in ExampleAnnotations)
+                {
+                    <p class="annotation-banner__item">
+                        @if (!string.IsNullOrWhiteSpace(context))
+                        {
+                            <span class="annotation-banner__context">@context: </span>
+                        }
+                        <span class="@cssClass" data-note="@note">@text</span>
+                    </p>
+                }
+            </section>
+        }
+
         <table cellpadding="0" cellspacing="0">
             <thead>
                 <tr>
@@ -140,6 +158,8 @@
     public string PathToCss { get; set; } = String.Empty;
     [Parameter]
     public string PathToJs { get; set; } = String.Empty;
+    [Parameter]
+    public string PathToAnnotationsCss { get; set; } = String.Empty;
 
     [Parameter]
     public Dictionary<string, List<Section>> Files { get; set; } = new();
@@ -149,6 +169,8 @@
 
     [Parameter]
     public List<(string Svg, string Caption)> FigureBanners { get; set; } = new();
+    [Parameter]
+    public List<(string Text, string Note, string CssClass, string? Context)> ExampleAnnotations { get; set; } = new();
 
     [Parameter]
     public Func<string, string> GetSourcePath { get; set; } = static _ => string.Empty;

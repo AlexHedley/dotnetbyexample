@@ -46,6 +46,16 @@ public class NoccoTests
     }
 
     [Fact]
+    public void AnnotationAttachments_GetAnnotations_ReturnsConfiguredAnnotation()
+    {
+        var annotations = AnnotationAttachments.GetAnnotations("maps").ToList();
+
+        Assert.NotEmpty(annotations);
+        Assert.Contains(annotations, annotation => annotation.Text.Contains("TryGetValue", StringComparison.OrdinalIgnoreCase));
+        Assert.All(annotations, annotation => Assert.Contains("ann", annotation.CssClass, StringComparison.Ordinal));
+    }
+
+    [Fact]
     public async Task GenerateAsync_GeneratesIndexAndExamplePage()
     {
         var tempRoot = Path.Combine(Path.GetTempPath(), "dotnetbyexample-tests", Guid.NewGuid().ToString("N"));
