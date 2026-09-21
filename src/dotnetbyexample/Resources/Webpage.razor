@@ -1,4 +1,5 @@
 @using Nocco
+@using dotnetbyexample.Marginalia
 
 <!DOCTYPE html>
 <html>
@@ -18,17 +19,30 @@
 
         <h2>@Title</h2>
 
-        <div class="tabs">
-            @foreach (var file in Files.OrderByDescending(f => f.Key))
+        <div class="tabs" role="tablist" aria-label="Example source files">
+            @{
+                var orderedFiles = Files.OrderByDescending(f => f.Key).ToList();
+            }
+            @for (var fileIndex = 0; fileIndex < orderedFiles.Count; fileIndex++)
             {
+                var file = orderedFiles[fileIndex];
                 var fileName = @Path.GetFileName(file.Key);
-                var fileExt = @Path.GetExtension(file.Key);
+                var tabId = $"tab-{fileIndex}-{fileName}";
+                var panelId = $"panel-{fileIndex}-{fileName}";
+                var isFirst = fileIndex == 0;
 
                 <div class="tab">
-                    <input type="radio" id="@fileName" name="tab-group-1" checked>
-                    <label for="@fileName">@GetAssociatedLanguageFromExtension(fileName)</label>
+                    @if (isFirst)
+                    {
+                        <input type="radio" id="@tabId" name="tab-group-1" checked aria-controls="@panelId">
+                    }
+                    else
+                    {
+                        <input type="radio" id="@tabId" name="tab-group-1" aria-controls="@panelId">
+                    }
+                    <label for="@tabId" role="tab" aria-selected="@isFirst">@GetAssociatedLanguageFromExtension(fileName)</label>
 
-                    <div class="content">
+                    <div class="content" id="@panelId" role="tabpanel">
 
                         <table cellpadding="0" cellspacing="0">
                             <thead>
@@ -47,10 +61,10 @@
                                             <div class="pilwrap">
                                                 <a class="pilcrow" href="#section_@(i + 1)">&#182;</a>
                                             </div>
-                                            @((MarkupString)file.Value[i].DocsHtml)
+                                            @((MarkupString)(file.Value[i].DocsHtml ?? string.Empty))
                                         </td>
                                         <td class="code">
-                                            @if (@file.Value[i].CodeHtml != "" && @file.Value[i].CodeHtml != "\r\n") { <button id="copyscriptbutton-code" class="copy-code-button" type="button">Copy</button> }
+                                            @if (!string.IsNullOrWhiteSpace(file.Value[i].CodeHtml)) { <button id="copyscriptbutton-code-@fileIndex-@i" class="copy-code-button" type="button" aria-label="Copy code">Copy</button> }
                                             <pre><code class='prettyprint'>@file.Value[i].CodeHtml</code></pre>
                                         </td>
                                     </tr>
@@ -63,6 +77,22 @@
                 </div>
             }
         </div>
+
+        @if (FigureBanners.Count > 0)
+        {
+            <div class="cell-banner cell-banner--@FigureBanners.Count">
+                @foreach (var (svg, caption) in FigureBanners)
+                {
+                    <figure class="cell-banner__figure">
+                        @((MarkupString)svg)
+                        @if (!string.IsNullOrEmpty(caption))
+                        {
+                            <figcaption>@caption</figcaption>
+                        }
+                    </figure>
+                }
+            </div>
+        }
 
         <table cellpadding="0" cellspacing="0">
             <thead>
@@ -79,10 +109,10 @@
                             <div class="pilwrap">
                                 <a class="pilcrow" href="#section_@(i + 1)">&#182;</a>
                             </div>
-                            @((MarkupString)Runner[i].DocsHtml)
+                            @((MarkupString)(Runner[i].DocsHtml ?? string.Empty))
                         </td>
                         <td class="code">
-                            @if (@Runner[i].CodeHtml != "" && @Runner[i].CodeHtml != "\r\n") { <button id="copyscriptbutton-bat" class="copy-code-button" type="button">Copy</button> }
+                            @if (!string.IsNullOrWhiteSpace(Runner[i].CodeHtml)) { <button id="copyscriptbutton-bat-@i" class="copy-code-button" type="button" aria-label="Copy code">Copy</button> }
                             <pre><code class='prettyprint'>@Runner[i].CodeHtml</code></pre>
                         </td>
                     </tr>
@@ -118,7 +148,10 @@
     public List<Section> Runner { get; set; } = new();
 
     [Parameter]
-    public Func<string, string> GetSourcePath { get; set; }
+    public List<(string Svg, string Caption)> FigureBanners { get; set; } = new();
+
+    [Parameter]
+    public Func<string, string> GetSourcePath { get; set; } = static _ => string.Empty;
 
     // Map
     string GetAssociatedLanguageFromExtension(string fileName)

@@ -45,6 +45,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using dotnetbyexample.Resources;
+using dotnetbyexample.Marginalia;
 using Index = dotnetbyexample.Resources.Index;
 using dotnetbyexample;
 
@@ -52,15 +53,12 @@ namespace Nocco;
 
 public class Nocco
 {
-    private static string _executingDirectory = String.Empty;
-    private static Dictionary<string, List<string>> _examples = new();
-
     //### Main Documentation Generation Functions
 
     // Generate the documentation for a source file by reading it in, splitting it
     // up into comment/code sections, highlighting them for the appropriate language,
     // and merging them into an HTML template.
-    private static void GenerateDocumentation(KeyValuePair<string, List<string>> example)
+    private static async Task GenerateDocumentation(KeyValuePair<string, List<string>> example, string siteFolder)
     {
         Dictionary<string, List<Section>> files = new();
         
@@ -73,7 +71,7 @@ public class Nocco
             files.Add(source, sections);
         }
 
-        GenerateHtml(example.Key, files);
+        await GenerateHtml(example.Key, files, siteFolder);
     }
 
     // Given a string of source code, parse out each comment and the code that
@@ -81,6 +79,9 @@ public class Nocco
     private static List<Section> Parse(string source, string[] lines) {
         var sections = new List<Section>();
         var language = GetLanguage(source);
+        if (language == null)
+            return sections;
+
         var hasCode = false;
         var docsText = new StringBuilder();
         var codeText = new StringBuilder();
@@ -120,18 +121,17 @@ public class Nocco
         var markdown = new MarkdownSharp.Markdown();
 
         foreach (var section in sections) {
-            section.DocsHtml = markdown.Transform(section.DocsHtml);
-            section.CodeHtml = section.CodeHtml;
+            section.DocsHtml = HtmlSafety.SanitizeHtml(markdown.Transform(section.DocsHtml ?? string.Empty));
         }
     }
     
     // Once all of the code is finished highlighting, we can generate the HTML file
     // and write out the documentation. Pass the completed sections into the template
     // found in `Resources/Webpage.cshtml`
-    private static async void GenerateHtml(string source, Dictionary<string, List<Section>> files)
+    private static async Task GenerateHtml(string source, Dictionary<string, List<Section>> files, string siteFolder)
     {
         string destination = new DirectoryInfo(source).Name;
-        destination = Path.Combine(Constants.SITE_FOLDER, destination + ".html").ToLower();
+        destination = Path.Combine(siteFolder, destination + ".html").ToLowerInvariant();
 
         string pathToRoot = "";
 
@@ -147,6 +147,10 @@ public class Nocco
         // Get the rest of the files
         files = files.Where(f => @Path.GetExtension(f.Key) != ".bat").ToDictionary();
 
+        // Look up any figures attached to this example
+        var slug = new DirectoryInfo(source).Name;
+        var figureBanners = FigureAttachments.GetFigures(slug).ToList();
+
         var html = await htmlRenderer.Dispatcher.InvokeAsync(async () =>
         {
             Func<string, string> getSourcePath = s =>
@@ -159,6 +163,7 @@ public class Nocco
                 { "GetSourcePath", getSourcePath },
                 { "Files", files },
                 { "Runner", runner },
+                { "FigureBanners", figureBanners },
             };
 
             var parameters = ParameterView.FromDictionary(dictionary);
@@ -167,19 +172,19 @@ public class Nocco
             return output.ToHtmlString();
         });
         
-        File.WriteAllText(destination, html);
+        await File.WriteAllTextAsync(destination, html);
     }
 
     // Build an index.html file that links to all of the generated HTML files.
-    private static async void GenerateIndex()
+    private static async Task GenerateIndex(Dictionary<string, List<string>> examples, string siteFolder)
     {
-        _executingDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-        File.Copy(Path.Combine(_executingDirectory, "Resources", "favicon.ico"), Path.Combine(Constants.SITE_FOLDER, "favicon.ico"), true);
-        File.Copy(Path.Combine(_executingDirectory, "Resources", "reset.css"), Path.Combine(Constants.SITE_FOLDER, "reset.css"), true);
-        File.Copy(Path.Combine(_executingDirectory, "Resources", "style.css"), Path.Combine(Constants.SITE_FOLDER, "style.css"), true);
+        var executingDirectory = GetExecutingDirectory();
+        File.Copy(Path.Combine(executingDirectory, "Resources", "favicon.ico"), Path.Combine(siteFolder, "favicon.ico"), true);
+        File.Copy(Path.Combine(executingDirectory, "Resources", "reset.css"), Path.Combine(siteFolder, "reset.css"), true);
+        File.Copy(Path.Combine(executingDirectory, "Resources", "style.css"), Path.Combine(siteFolder, "style.css"), true);
 
         // Just get the the folder name of the examples (should this be more readable?)
-        var sources = _examples.Keys.Select(e => new DirectoryInfo(e).Name).ToList();
+        var sources = examples.Keys.Select(e => new DirectoryInfo(e).Name).ToList();
 
         IServiceCollection services = new ServiceCollection();
         services.AddLogging();
@@ -201,8 +206,8 @@ public class Nocco
             return output.ToHtmlString();
         });
 
-        var destination = Path.Combine(Constants.SITE_FOLDER, "index.html");
-        File.WriteAllText(destination, indexHtml);
+        var destination = Path.Combine(siteFolder, "index.html");
+        await File.WriteAllTextAsync(destination, indexHtml);
     }
 
     // A list of the languages that Nocco supports, mapping the file extension to
@@ -301,69 +306,79 @@ public class Nocco
     };
     
     // Get the current language we're documenting, based on the extension.
-    private static Language GetLanguage(string source) {
+    private static Language? GetLanguage(string source) {
         var extension = Path.GetExtension(source);
-        return Languages.ContainsKey(extension) ? Languages[extension] : null;
+        return Languages.TryGetValue(extension, out var language) ? language : null;
     }
+
+    internal static string? GetLanguageName(string source) => GetLanguage(source)?.Name;
+
+    internal static List<Section> ParseForTesting(string source, string[] lines) => Parse(source, lines);
+
+    private static string GetExecutingDirectory() =>
+        Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)
+        ?? AppContext.BaseDirectory;
     
     // Find all the files that match the pattern(s) passed in as arguments and
     // generate documentation for each one.
-    public static void Generate()
+    public static async Task GenerateAsync(string examplesRoot = "examples", string siteFolder = Constants.SITE_FOLDER)
     {
         string[] targets = new [] { "*.cs", "*.vb", "*.csx", "*.fsx", "*.bat" };
 
-        if (targets.Length > 0)
+        if (targets.Length == 0)
+            return;
+
+        Directory.CreateDirectory(siteFolder);
+
+        var executingDirectory = GetExecutingDirectory();
+        File.Copy(Path.Combine(executingDirectory, "Resources", "nocco.css"), Path.Combine(siteFolder, "nocco.css"), true);
+        File.Copy(Path.Combine(executingDirectory, "Resources", "nocco.js"), Path.Combine(siteFolder, "nocco.js"), true);
+        File.Copy(Path.Combine(executingDirectory, "Resources", "prettify.js"), Path.Combine(siteFolder, "prettify.js"), true);
+
+        var directories = Directory.GetDirectories(examplesRoot, "*", SearchOption.TopDirectoryOnly);
+        Console.WriteLine($"{directories.Length} directories found.");
+
+        var examples = new Dictionary<string, List<string>>();
+
+        foreach (var directory in directories)
         {
-            Directory.CreateDirectory(Constants.SITE_FOLDER);
+            List<string> files = new();
 
-            _executingDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            File.Copy(Path.Combine(_executingDirectory, "Resources", "nocco.css"), Path.Combine(Constants.SITE_FOLDER, "nocco.css"), true);
-            File.Copy(Path.Combine(_executingDirectory, "Resources", "nocco.js"), Path.Combine(Constants.SITE_FOLDER, "nocco.js"), true);
-            File.Copy(Path.Combine(_executingDirectory, "Resources", "prettify.js"), Path.Combine(Constants.SITE_FOLDER, "prettify.js"), true);
-
-            var directories = Directory.GetDirectories(@"examples", "*", SearchOption.TopDirectoryOnly);
-            Console.WriteLine($"{directories.Length} directories found.");
-
-            foreach (var directory in directories)
+            foreach (var target in targets)
             {
-                List<string> _files = new();
-
-                foreach (var target in targets)
+                files.AddRange(Directory.GetFiles(directory, target, SearchOption.TopDirectoryOnly).Where(filename =>
                 {
-                    _files.AddRange(Directory.GetFiles(directory, target, SearchOption.TopDirectoryOnly).Where(filename =>
-                    {
-                        var language = GetLanguage(Path.GetFileName(filename));
+                    var language = GetLanguage(Path.GetFileName(filename));
+                    if (language == null)
+                        return false;
 
-                        if (language == null)
-                            return false;
+                    // Check if the file extension should be ignored
+                    if (language.Ignores != null && language.Ignores.Any(ignore => filename.EndsWith(ignore, StringComparison.Ordinal)))
+                        return false;
 
-                        // Check if the file extension should be ignored
-                        if (language.Ignores != null && language.Ignores.Any(ignore => filename.EndsWith(ignore)))
-                            return false;
+                    // Don't include certain directories
+                    var directoryName = Path.GetDirectoryName(filename) ?? string.Empty;
+                    var foldersToExclude = new[] { @"\docs", @"\bin", @"\obj", "/docs", "/bin", "/obj" };
+                    if (foldersToExclude.Any(folder => directoryName.Contains(folder, StringComparison.OrdinalIgnoreCase)))
+                        return false;
 
-                        // Don't include certain directories
-                        var foldersToExclude = new string[] { @"\docs", @"\bin", @"\obj" };
-                        if (foldersToExclude.Any(folder => Path.GetDirectoryName(filename).Contains(folder)))
-                            return false;
-
-                        return true;
-                    }));
-                }
-
-                _examples.Add(directory, _files);
+                    return true;
+                }));
             }
 
-            Console.WriteLine($"{_examples.Count} examples found.");
-
-            foreach (var example in _examples)
-            {
-                Console.WriteLine($"Generating documentation for {example.Key}");
-                GenerateDocumentation(example);
-            }
-
-            Console.WriteLine($"Generating home page with list of examples.");
-            GenerateIndex();
+            examples[directory] = files;
         }
+
+        Console.WriteLine($"{examples.Count} examples found.");
+
+        foreach (var example in examples)
+        {
+            Console.WriteLine($"Generating documentation for {example.Key}");
+            await GenerateDocumentation(example, siteFolder);
+        }
+
+        Console.WriteLine("Generating home page with list of examples.");
+        await GenerateIndex(examples, siteFolder);
     }
 
 }
