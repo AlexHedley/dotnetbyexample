@@ -1,34 +1,42 @@
-name: Build / Validate
+name: Deploy GH Pages
 
 on:
   workflow_dispatch:
   push:
     branches: [ main, dev ]
-    paths: src/**
-  pull_request:
-    branches: [ main ]
-    paths: src/**
+    paths:
+      - src/**
+      - examples/**
+
+permissions:
+  contents: write
 
 jobs:
-  build-test:
+  deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: 🛎️ Checkout
       uses: actions/checkout@v6
-    
+
     - name: ⚙️ Setup .NET 10.0
       uses: actions/setup-dotnet@v5
       with:
         dotnet-version: '10.0.x'
-    
+
     - name: ⬇️ Restore dependencies
       run: dotnet restore
       working-directory: src
-      
+
     - name: 🔨 Build
-      run: dotnet build --configuration Release --no-restore 
+      run: dotnet build --configuration Release --no-restore
       working-directory: src
-    
+
     - name: 🏗️ Generate Site
-      run: dotnet run --property:Configuration=Release --project src/dotnetbyexample/dotnetbyexample.csproj 
+      run: dotnet run --property:Configuration=Release --project src/dotnetbyexample/dotnetbyexample.csproj
+
+    - name: 🚀 Deploy Site
+      uses: JamesIves/github-pages-deploy-action@v4.8.0
+      with:
+        branch: gh-pages
+        folder: site

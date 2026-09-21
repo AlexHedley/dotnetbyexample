@@ -84,7 +84,7 @@ public static class FigureAttachments
                 new FigureAttachment(
                     "after-last",
                     "map-entries",
-                    "A Dictionary maps each key to one value; looking up a missing key returns a zero value by default, or false from TryGetValue."),
+                    "A Dictionary maps each key to one value; indexer lookup throws for missing keys, while TryGetValue returns false without throwing."),
             },
             ["slices"] = new[]
             {
@@ -266,7 +266,7 @@ public static class FigureAttachments
                 new FigureAttachment(
                     "after-last",
                     "channel-sync",
-                    "A completion channel lets one goroutine signal another when work is done, giving explicit synchronization without shared mutable state."),
+                    "A completion channel lets one Task signal another when work is done, giving explicit synchronization without shared mutable state."),
             },
             ["closing-channels"] = new[]
             {
@@ -343,14 +343,14 @@ public static class FigureAttachments
                 new FigureAttachment(
                     "after-last",
                     "panic-recover-stack",
-                    "A panic unwinds stack frames; deferred functions run during unwinding and recover can intercept the panic to resume control."),
+                    "An exception unwinds stack frames; cleanup in finally blocks still runs, and catch handlers can recover control flow."),
             },
             ["range-over-built-in-types"] = new[]
             {
                 new FigureAttachment(
                     "after-last",
                     "range-runes",
-                    "Ranging over a string yields index/rune pairs, iterating logical characters rather than raw bytes."),
+                    "Enumerating a string yields UTF-16 char values; use Rune APIs when you need full Unicode scalar values."),
             },
             ["channel-buffering"] = new[]
             {
@@ -392,7 +392,7 @@ public static class FigureAttachments
                 new FigureAttachment(
                     "after-last",
                     "exit-status",
-                    "Calling os.Exit terminates the program and returns a numeric status code to the shell; zero conventionally means success, any other value means failure."),
+                    "Calling Environment.Exit terminates the process and returns a numeric status code to the shell; zero usually means success."),
             },
             ["file-paths"] = new[]
             {
@@ -497,7 +497,7 @@ public static class FigureAttachments
                 new FigureAttachment(
                     "after-last",
                     "signal-channel",
-                    "OS signals can be routed into a channel so a goroutine can handle interrupts and shutdown events cooperatively."),
+                    "Shutdown signals can be routed through a Channel so a background Task can handle interrupts and graceful termination cooperatively."),
             },
             ["sorting-by-functions"] = new[]
             {
@@ -518,7 +518,7 @@ public static class FigureAttachments
                 new FigureAttachment(
                     "after-last",
                     "stateful-owner",
-                    "A single owner goroutine encapsulates mutable state; other goroutines interact only via request/reply channels."),
+                    "A single owner Task encapsulates mutable state; other tasks interact only through request/reply channels."),
             },
             ["string-functions"] = new[]
             {
@@ -532,7 +532,7 @@ public static class FigureAttachments
                 new FigureAttachment(
                     "after-last",
                     "string-rune-bytes",
-                    "A string is UTF-8 encoded bytes; ranging/decoding yields rune values that represent Unicode code points."),
+                    "A .NET string stores UTF-16 code units; Rune-based decoding yields Unicode scalar values for full code-point handling."),
             },
             ["struct-embedding"] = new[]
             {
@@ -595,14 +595,14 @@ public static class FigureAttachments
                 new FigureAttachment(
                     "after-last",
                     "waitgroup-counter",
-                    "A WaitGroup counter tracks running goroutines; Done decrements it and Wait blocks until the counter reaches zero."),
+                    "Task coordination primitives track in-flight work; each completion decrements remaining work and waiting continues until all tasks finish."),
             },
             ["worker-pools"] = new[]
             {
                 new FigureAttachment(
                     "after-last",
                     "worker-pool",
-                    "A fixed set of worker goroutines consume jobs from a shared queue and emit results concurrently."),
+                    "A fixed set of worker Tasks consume jobs from a shared queue and emit results concurrently."),
             },
             ["writing-files"] = new[]
             {
