@@ -312,3 +312,23 @@ table td {
 	font-style: italic;
 	max-width: 44ch;
 }
+
+/*---------------------- Text Annotations -----------------------------*/
+.annotation-banner {
+	margin: 8px 50px 28px;
+	padding: 20px 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 28px 40px;
+}
+
+.annotation-banner__item {
+	margin: 0;
+	min-width: 220px;
+	line-height: 1.6;
+}
+
+.annotation-banner__context {
+	color: rgba(38, 26, 59, 0.85);
+	font-weight: 600;
+}

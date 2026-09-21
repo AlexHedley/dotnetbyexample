@@ -150,6 +150,7 @@ public class Nocco
         // Look up any figures attached to this example
         var slug = new DirectoryInfo(source).Name;
         var figureBanners = FigureAttachments.GetFigures(slug).ToList();
+        var exampleAnnotations = AnnotationAttachments.GetAnnotations(slug).ToList();
 
         var html = await htmlRenderer.Dispatcher.InvokeAsync(async () =>
         {
@@ -160,10 +161,12 @@ public class Nocco
                 { "Title", Path.GetFileName(source) },
                 { "PathToCss", Path.Combine(pathToRoot, "nocco.css").Replace('\\', '/') },
                 { "PathToJs", Path.Combine(pathToRoot, "prettify.js").Replace('\\', '/') },
+                { "PathToAnnotationsCss", Path.Combine(pathToRoot, "neat-annotations.css").Replace('\\', '/') },
                 { "GetSourcePath", getSourcePath },
                 { "Files", files },
                 { "Runner", runner },
                 { "FigureBanners", figureBanners },
+                { "ExampleAnnotations", exampleAnnotations },
             };
 
             var parameters = ParameterView.FromDictionary(dictionary);
@@ -333,6 +336,7 @@ public class Nocco
         var executingDirectory = GetExecutingDirectory();
         File.Copy(Path.Combine(executingDirectory, "Resources", "nocco.css"), Path.Combine(siteFolder, "nocco.css"), true);
         File.Copy(Path.Combine(executingDirectory, "Resources", "nocco.js"), Path.Combine(siteFolder, "nocco.js"), true);
+        File.Copy(Path.Combine(executingDirectory, "Resources", "neat-annotations.css"), Path.Combine(siteFolder, "neat-annotations.css"), true);
         File.Copy(Path.Combine(executingDirectory, "Resources", "prettify.js"), Path.Combine(siteFolder, "prettify.js"), true);
 
         var directories = Directory.GetDirectories(examplesRoot, "*", SearchOption.TopDirectoryOnly);

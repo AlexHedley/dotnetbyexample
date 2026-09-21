@@ -28,6 +28,9 @@
     <None Update="Resources\nocco.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\neat-annotations.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\prettify.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
