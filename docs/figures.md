@@ -1258,6 +1258,16 @@ A .NET object serialised to XML and deserialised back to an equivalent object.
 
 ---
 
+## Annotation screenshot example
+
+The generated `maps` page now includes text callouts rendered with Neat
+Annotations. This screenshot shows an annotation attached to
+`TryGetValue`, between the figure banner and runner output.
+
+![maps example page showing an annotation callout for TryGetValue](figure-annotations.png)
+
+---
+
 ## Reference — all figures
 
 | Figure name | Paint method | Canvas (w×h) | Attached to |
