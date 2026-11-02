@@ -1258,11 +1258,40 @@ A .NET object serialised to XML and deserialised back to an equivalent object.
 
 ---
 
-## Annotation screenshot example
+## Annotation files
 
-The generated `maps` page now includes text callouts rendered with Neat
-Annotations. This screenshot shows an annotation attached to
-`TryGetValue`, between the figure banner and runner output.
+Annotations are configured per example by adding an `Annotations.txt` file in
+the same folder as `*.csx`, `*.fsx`, `*.vb`, and `*.bat`.
+
+During generation, the file is read line-by-line and each non-empty,
+non-comment line is parsed as a pipe-delimited record:
+
+`[Context|]Text|Note|DirectionClass|ColorClass`
+
+- `Context` (optional) adds a prefix label before the annotation text.
+- `Text` is the highlighted token shown on the page.
+- `Note` is the handwritten annotation label.
+- `DirectionClass` is one of `ann-n`, `ann-ne`, `ann-e`, `ann-se`, `ann-s`,
+  `ann-sw`, `ann-w`, `ann-nw`.
+- `ColorClass` is one of `ann-amber`, `ann-blue`, `ann-green`, `ann-red`,
+  `ann-purple`, `ann-rainbow`.
+
+### Example input (`examples/maps/Annotations.txt`)
+
+```text
+# Format: [Context|]Text|Note|DirectionClass|ColorClass
+Lookup|TryGetValue|read safely without exceptions|ann-s|ann-blue
+Mutation|delete|remove a key/value entry|ann-se|ann-green
+```
+
+![maps annotations input file](annotation-input-maps.png)
+
+### Example output (`site/maps.html`)
+
+The callouts render between the figure banner and runner output on the
+generated page.
+
+![maps example page showing annotation callouts loaded from Annotations.txt](annotation-output-maps.png)
 
 ![maps example page showing an annotation callout for TryGetValue](figure-annotations.png)
 
