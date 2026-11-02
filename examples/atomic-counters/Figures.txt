@@ -1,0 +1,1 @@
+after-last|atomic-counter-sync|Atomic increments coordinate concurrent updates to one shared counter value without race conditions by applying each increment as an indivisible operation.

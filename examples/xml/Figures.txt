@@ -1,0 +1,1 @@
+after-last|xml-roundtrip|XML serialization maps object fields to elements/attributes and can deserialize the document back into objects.

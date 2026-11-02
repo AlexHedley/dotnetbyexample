@@ -50,6 +50,7 @@ Locally
 ## docs
 
 - 📂[docs](docs/README.md)
+- 📄[figures](docs/figures.md) — how to add inline SVG diagrams to example pages
 
 ## Dependencies
 

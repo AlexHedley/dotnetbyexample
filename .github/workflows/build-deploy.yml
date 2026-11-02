@@ -1,4 +1,4 @@
-name: Build / Deploy to GH Pages
+name: Build / Validate
 
 on:
   workflow_dispatch:
@@ -32,9 +32,3 @@ jobs:
     
     - name: 🏗️ Generate Site
       run: dotnet run --property:Configuration=Release --project src/dotnetbyexample/dotnetbyexample.csproj 
-
-    - name: 🚀 Deploy Code Coverage Report
-      uses: JamesIves/github-pages-deploy-action@v4.8.0
-      with:
-        branch: gh-pages
-        folder: site

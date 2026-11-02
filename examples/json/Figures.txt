@@ -1,0 +1,1 @@
+after-last|json-serialize|JsonSerializer.Serialize converts a C# object to a JSON string; JsonSerializer.Deserialize reconstructs an equivalent object from that string.

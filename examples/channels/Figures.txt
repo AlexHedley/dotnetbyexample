@@ -1,0 +1,1 @@
+after-last|channel-buffer|A buffered channel decouples producer and consumer; the producer can send up to the buffer capacity without blocking, and the consumer reads whenever it is ready.

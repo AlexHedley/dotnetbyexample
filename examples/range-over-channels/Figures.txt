@@ -1,0 +1,1 @@
+after-last|range-over-channels|Ranging over a channel reads values one by one until the channel is closed; closing signals the consumer that no more data will arrive.

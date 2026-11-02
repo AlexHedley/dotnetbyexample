@@ -1,0 +1,1 @@
+after-last|switch-cases|A switch tests one value against every case label in turn; exactly one matching arm executes, and unmatched arms are skipped entirely.

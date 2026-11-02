@@ -1,0 +1,1 @@
+after-last|channel-sync|A completion channel lets one Task signal another when work is done, giving explicit synchronization without shared mutable state.

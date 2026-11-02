@@ -1,0 +1,1 @@
+after-last|struct-fields|A struct groups named, typed fields into a single record; each field holds its own value independently.

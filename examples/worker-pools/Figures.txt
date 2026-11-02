@@ -1,0 +1,1 @@
+after-last|worker-pool|A fixed set of worker Tasks consume jobs from a shared queue and emit results concurrently.

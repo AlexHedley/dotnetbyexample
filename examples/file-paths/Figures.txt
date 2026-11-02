@@ -1,0 +1,1 @@
+after-last|file-path-parts|A file path can be split into its directory prefix, base name, and extension, each of which can be manipulated independently.

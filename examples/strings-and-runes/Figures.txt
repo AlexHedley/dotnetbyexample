@@ -1,0 +1,1 @@
+after-last|string-rune-bytes|A .NET string stores UTF-16 code units; Rune-based decoding yields Unicode scalar values for full code-point handling.

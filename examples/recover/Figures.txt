@@ -1,0 +1,1 @@
+after-last|recover-flow|A deferred recover call can intercept a panic while the stack unwinds, allowing control flow to continue with fallback handling.

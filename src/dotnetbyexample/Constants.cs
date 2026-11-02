@@ -2,6 +2,6 @@
 {
     public class Constants
     {
-        public static string SITE_FOLDER = "site";
+        public const string SITE_FOLDER = "site";
     }
 }

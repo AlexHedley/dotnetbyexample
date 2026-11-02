@@ -1,0 +1,1 @@
+after-last|variables-bind|A variable is a named slot that refers to an object. Assignment binds the slot; the object lives independently.

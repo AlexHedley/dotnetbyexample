@@ -1,0 +1,1 @@
+after-last|range-runes|Enumerating a string yields UTF-16 char values; use Rune APIs when you need full Unicode scalar values.

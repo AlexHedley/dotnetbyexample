@@ -1,0 +1,1 @@
+after-last|closure-cell|The inner function keeps a reference to the captured variable from the outer scope, so the captured value survives the outer call returning.

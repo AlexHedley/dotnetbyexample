@@ -1,0 +1,1 @@
+after-last|enum-values|An enum assigns a name to each underlying integer value; the compiler enforces that only valid members are used.

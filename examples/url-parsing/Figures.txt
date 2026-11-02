@@ -1,0 +1,1 @@
+after-last|url-parts|Uri.Parse splits a URL into its components — scheme, host, path, and query string — each of which can be read or rebuilt independently.

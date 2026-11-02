@@ -1,0 +1,1 @@
+after-last|if-else-branch|An if/else evaluates a condition and routes execution to exactly one branch; the false branch runs when the condition is not satisfied.

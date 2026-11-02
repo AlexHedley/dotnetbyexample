@@ -1,0 +1,1 @@
+after-last|signal-channel|Shutdown signals can be routed through a Channel so a background Task can handle interrupts and graceful termination cooperatively.

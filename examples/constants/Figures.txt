@@ -1,0 +1,1 @@
+after-last|const-value|A const value is resolved at compile time and inlined wherever it is used; no memory slot is allocated for it at runtime.

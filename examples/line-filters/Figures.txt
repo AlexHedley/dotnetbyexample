@@ -1,0 +1,1 @@
+after-last|line-filter|A line filter reads lines from stdin, applies a transformation to each, and writes the result to stdout — composable with other shell tools.

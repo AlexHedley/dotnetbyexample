@@ -1,0 +1,1 @@
+after-last|sha256-digest|SHA256 deterministically transforms input bytes into a fixed-length 32-byte digest for integrity checks.

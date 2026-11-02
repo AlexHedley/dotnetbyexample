@@ -1,0 +1,1 @@
+after-last|array-index|An array is a fixed-length sequence of elements; each element is stored at a zero-based index and accessed in constant time.

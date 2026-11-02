@@ -1,0 +1,1 @@
+after-last|channel-buffering-cap|A buffered channel holds up to its capacity without blocking the sender; the consumer reads whenever it is ready, decoupling the two sides.
