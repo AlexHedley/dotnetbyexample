@@ -1,0 +1,1 @@
+after-last|base64-roundtrip|Base64 encoding maps binary bytes to printable text and decoding reverses it; together they preserve the original byte sequence exactly.

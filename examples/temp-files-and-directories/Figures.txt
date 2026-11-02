@@ -1,0 +1,1 @@
+after-last|temp-file-lifecycle|Temporary paths are created in the OS temp location, used for short-lived work, and then removed during cleanup.

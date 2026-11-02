@@ -1,0 +1,1 @@
+after-last|sort-comparator|A custom comparator function defines ordering rules, letting sort operations arrange values by domain-specific criteria.

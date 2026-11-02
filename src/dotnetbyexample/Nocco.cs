@@ -148,8 +148,7 @@ public class Nocco
         files = files.Where(f => @Path.GetExtension(f.Key) != ".bat").ToDictionary();
 
         // Look up any figures attached to this example
-        var slug = new DirectoryInfo(source).Name;
-        var figureBanners = FigureAttachments.GetFigures(slug).ToList();
+        var figureBanners = FigureAttachments.GetFigures(source).ToList();
 
         var html = await htmlRenderer.Dispatcher.InvokeAsync(async () =>
         {

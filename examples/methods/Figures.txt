@@ -1,0 +1,1 @@
+after-last|method-slots|A struct bundles named fields and methods into a single type; methods receive the struct value and can compute derived results from its fields.

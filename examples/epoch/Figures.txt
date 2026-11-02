@@ -1,0 +1,1 @@
+after-last|epoch-offset|Unix time represents the current instant as an offset from the epoch (1970-01-01T00:00:00Z), typically measured in seconds.

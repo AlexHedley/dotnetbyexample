@@ -1,0 +1,1 @@
+after-last|mutex-critical|A mutex enforces exclusive access to a critical section: lock before shared-state mutation and unlock immediately after.

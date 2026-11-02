@@ -6,7 +6,7 @@ A figure is added by:
 
 1. Writing a paint method in `src/dotnetbyexample/Marginalia/Figures.cs`.
 2. Registering it in `Figures.Registry` (same file).
-3. Adding an entry to `FigureAttachments.Attachments` in `src/dotnetbyexample/Marginalia/FigureAttachments.cs`.
+3. Adding a line to `examples/<slug>/Figures.txt` (`anchor|figure-name|caption`).
 
 ---
 

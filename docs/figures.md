@@ -17,16 +17,16 @@ module from [pythonbyexample](https://github.com/adewale/pythonbyexample).
 Marginalia/
 ├── Canvas.cs            # SVG drawing primitives – the "grammar"
 ├── Figures.cs           # Named paint functions + figure registry
-└── FigureAttachments.cs # Slug → figure(s) attachment map
+└── FigureAttachments.cs # Reads examples/<slug>/Figures.txt
 ```
 
 | File | Responsibility |
 |------|---------------|
 | `Canvas.cs` | A stateful SVG builder. Exposes locked drawing methods (lines, boxes, arrows, text). No raw SVG is ever written outside this file. |
 | `Figures.cs` | One static method per named figure, plus a `Registry` dictionary that maps a figure name string to its paint method and canvas dimensions. |
-| `FigureAttachments.cs` | Maps example-directory slugs to one or more `FigureAttachment` records (anchor, figure name, caption). |
+| `FigureAttachments.cs` | Parses `Figures.txt` from an example directory into `FigureAttachment` records (anchor, figure name, caption). |
 
-`Nocco.cs` calls `FigureAttachments.GetFigures(slug)` for every example being
+`Nocco.cs` calls `FigureAttachments.GetFigures(exampleDirectory)` for every example being
 generated and passes the resulting `(svg, caption)` pairs to the Razor
 template.  `Webpage.razor` renders a `<div class="cell-banner">` when the list
 is non-empty.  The CSS lives in `Resources/nocco.css` under the `Figure
@@ -41,9 +41,9 @@ dotnet run
   │
   ├─ for each examples/<slug>/
   │     │
-  │     ├─ FigureAttachments.GetFigures(slug)
+  │     ├─ FigureAttachments.GetFigures(dir)
   │     │     │
-  │     │     └─ looks up Attachments["slug"]
+  │     │     └─ reads <dir>/Figures.txt
   │     │           for each FigureAttachment:
   │     │             Figures.RenderSvg(figureName)
   │     │               └─ creates Canvas(w, h)
@@ -120,11 +120,9 @@ whitespace weakens the diagram.
 
 ## How to add a figure — step by step
 
-There are three files to edit and nothing else:
-
 1. Write a paint function in `Figures.cs`
 2. Register it in the `Registry` dictionary in `Figures.cs`
-3. Attach it to an example in `FigureAttachments.cs`
+3. Attach it to an example by adding a line to `examples/<slug>/Figures.txt`
 
 Then run the site generator to verify the output.
 
@@ -199,34 +197,26 @@ Still in `Figures.cs`, add an entry to the `Registry` dictionary:
 ```
 
 The key is the **figure name** — a kebab-case string used to reference the
-figure from `FigureAttachments.cs`.  Choose a name that is unique and
+figure from `Figures.txt`.  Choose a name that is unique and
 descriptive.
 
 ---
 
 ### Step 5 — Attach the figure to an example
 
-Open `src/dotnetbyexample/Marginalia/FigureAttachments.cs` and add an entry to
-the `Attachments` dictionary.
+Create or edit `Figures.txt` in the example's directory, next to its
+`.cs`/`.vb`/`.fsx`/`.bat` files. One pipe-delimited line per figure
+(`anchor|figure-name|caption`); blank lines and `#` comments are ignored.
 
-The **key** is the example's **slug** — the directory name under `examples/`
-in lowercase (e.g. the directory `examples/for` → slug `"for"`).
-
-```csharp
-["for"] = new[]
-{
-    new FigureAttachment(
-        "after-last",
-        "for-loop",
-        "The loop counter advances through each item in the range; the loop stops automatically when the range is exhausted."),
-},
+```
+after-last|for-loop|The loop counter advances through each item in the range; the loop stops automatically when the range is exhausted.
 ```
 
 | Field | Value |
 |-------|-------|
-| `Anchor` | `"after-last"` (currently the only supported anchor — renders the banner after the last code section) |
-| `FigureName` | Must match the key you added to `Figures.Registry` |
-| `Caption` | One sentence describing what the figure shows.  Written as prose, not a title. |
+| `anchor` | `after-last` (currently the only supported anchor — renders the banner after the last code section) |
+| `figure-name` | Must match the key you added to `Figures.Registry` |
+| `caption` | One sentence describing what the figure shows.  Written as prose, not a title. |
 
 ---
 
@@ -295,16 +285,10 @@ public static void ForLoop(Canvas c)
 ["for-loop"] = (ForLoop, 210, 46),
 ```
 
-### Step 3 — Attachment (add to `FigureAttachments.Attachments` in `FigureAttachments.cs`)
+### Step 3 — Attachment (add to `examples/<slug>/Figures.txt`)
 
-```csharp
-["for"] = new[]
-{
-    new FigureAttachment(
-        "after-last",
-        "for-loop",
-        "A for loop advances a counter through each value in the range one step at a time; the loop stops automatically when the range is exhausted."),
-},
+```
+after-last|for-loop|A for loop advances a counter through each value in the range one step at a time; the loop stops automatically when the range is exhausted.
 ```
 
 ### Step 4 — Run and inspect
@@ -388,16 +372,10 @@ on the object box, so arrows come out perfectly horizontal.
 ["struct-fields"] = (StructFields, 206, 96),
 ```
 
-### Step 3 — Attachment (add to `FigureAttachments.Attachments` in `FigureAttachments.cs`)
+### Step 3 — Attachment (add to `examples/<slug>/Figures.txt`)
 
-```csharp
-["structs"] = new[]
-{
-    new FigureAttachment(
-        "after-last",
-        "struct-fields",
-        "A struct groups named, typed fields into a single record; each field holds its own value independently."),
-},
+```
+after-last|struct-fields|A struct groups named, typed fields into a single record; each field holds its own value independently.
 ```
 
 ### Step 4 — Run and inspect
@@ -1366,7 +1344,7 @@ use emphasis, none of them read as special.
 
 **The figure doesn't appear on the page.**
 Check that:
-1. The slug in `FigureAttachments` exactly matches the directory name under
-   `examples/` (case-insensitive, but kebab-case by convention).
+1. `Figures.txt` is in the example's directory under `examples/` and each
+   line has three pipe-separated fields.
 2. The figure name in the attachment matches a key in `Figures.Registry`.
 3. You ran `dotnet run --project src/dotnetbyexample/` after the change.

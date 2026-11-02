@@ -1,0 +1,1 @@
+after-last|custom-error-fields|A custom error type can carry structured fields (like argument name and message) while still satisfying the error interface.

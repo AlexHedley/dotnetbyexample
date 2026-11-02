@@ -1,0 +1,1 @@
+after-last|slice-window|GetRange returns a new list containing the elements from the given start index for the given count, leaving the original list unchanged.

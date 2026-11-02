@@ -1,0 +1,1 @@
+after-last|structured-log-entry|Structured logging records named fields such as level, timestamp, and message so entries can be filtered and queried reliably.

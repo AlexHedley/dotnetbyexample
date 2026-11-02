@@ -1,0 +1,1 @@
+after-last|lifo-defer|Deferred cleanup actions are registered in order and executed in reverse (LIFO) when the enclosing scope exits, whether normally or by exception.

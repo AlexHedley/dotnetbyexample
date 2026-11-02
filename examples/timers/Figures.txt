@@ -1,0 +1,1 @@
+after-last|timer-tick|A timer fires a single tick event on its channel after the specified duration; reading from the channel blocks until the deadline is reached.

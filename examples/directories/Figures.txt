@@ -1,0 +1,1 @@
+after-last|directory-tree|Directories form a tree; each node is either a folder containing children or a file at a leaf.

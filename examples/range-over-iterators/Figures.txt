@@ -1,0 +1,1 @@
+after-last|range-iterator|A custom iterator function yields successive values into a range loop body, keeping iteration logic separate from the consuming code.

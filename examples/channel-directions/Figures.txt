@@ -1,0 +1,1 @@
+after-last|channel-directions|Directional channel parameters restrict capabilities at compile time: send-only parameters can only send and receive-only parameters can only receive.
