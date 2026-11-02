@@ -1,0 +1,2 @@
+# Format: [Context|]Text|Note|DirectionClass|ColorClass
+Core API|Console.WriteLine|writes to standard output|ann-s|ann-amber

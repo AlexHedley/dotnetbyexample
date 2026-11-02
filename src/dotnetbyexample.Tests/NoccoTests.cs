@@ -46,6 +46,33 @@ public class NoccoTests
     }
 
     [Fact]
+    public async Task AnnotationAttachments_GetAnnotations_ReadsAnnotationsFile()
+    {
+        var tempRoot = Path.Combine(Path.GetTempPath(), "dotnetbyexample-tests", Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(tempRoot);
+
+        var annotationFile = Path.Combine(tempRoot, "Annotations.txt");
+        await File.WriteAllTextAsync(annotationFile,
+            "# context|text|note|direction|color\n" +
+            "Lookup|TryGetValue|read safely without exceptions|ann-s|ann-blue\n");
+
+        try
+        {
+            var annotations = AnnotationAttachments.GetAnnotations(tempRoot).ToList();
+
+            Assert.Single(annotations);
+            Assert.Equal("TryGetValue", annotations[0].Text);
+            Assert.Equal("Lookup", annotations[0].Context);
+            Assert.Equal("ann ann-s ann-blue", annotations[0].CssClass);
+        }
+        finally
+        {
+            if (Directory.Exists(tempRoot))
+                Directory.Delete(tempRoot, true);
+        }
+    }
+
+    [Fact]
     public async Task GenerateAsync_GeneratesIndexAndExamplePage()
     {
         var tempRoot = Path.Combine(Path.GetTempPath(), "dotnetbyexample-tests", Guid.NewGuid().ToString("N"));

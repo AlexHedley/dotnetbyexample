@@ -1,0 +1,3 @@
+# Format: [Context|]Text|Note|DirectionClass|ColorClass
+Lookup|TryGetValue|read safely without exceptions|ann-s|ann-blue
+Mutation|delete|remove a key/value entry|ann-se|ann-green
