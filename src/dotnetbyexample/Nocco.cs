@@ -150,7 +150,7 @@ public class Nocco
         // Look up any figures attached to this example
         var slug = new DirectoryInfo(source).Name;
         var figureBanners = FigureAttachments.GetFigures(slug).ToList();
-        var exampleAnnotations = AnnotationAttachments.GetAnnotations(slug).ToList();
+        var exampleAnnotations = AnnotationAttachments.GetAnnotations(source).ToList();
 
         var html = await htmlRenderer.Dispatcher.InvokeAsync(async () =>
         {

@@ -1,0 +1,2 @@
+# Format: [Context|]Text|Note|DirectionClass|ColorClass
+Concurrency|go|starts concurrent work|ann-ne|ann-purple

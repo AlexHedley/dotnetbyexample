@@ -46,13 +46,30 @@ public class NoccoTests
     }
 
     [Fact]
-    public void AnnotationAttachments_GetAnnotations_ReturnsConfiguredAnnotation()
+    public async Task AnnotationAttachments_GetAnnotations_ReadsAnnotationsFile()
     {
-        var annotations = AnnotationAttachments.GetAnnotations("maps").ToList();
+        var tempRoot = Path.Combine(Path.GetTempPath(), "dotnetbyexample-tests", Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(tempRoot);
 
-        Assert.NotEmpty(annotations);
-        Assert.Contains(annotations, annotation => annotation.Text.Contains("TryGetValue", StringComparison.OrdinalIgnoreCase));
-        Assert.All(annotations, annotation => Assert.Contains("ann", annotation.CssClass, StringComparison.Ordinal));
+        var annotationFile = Path.Combine(tempRoot, "Annotations.txt");
+        await File.WriteAllTextAsync(annotationFile,
+            "# context|text|note|direction|color\n" +
+            "Lookup|TryGetValue|read safely without exceptions|ann-s|ann-blue\n");
+
+        try
+        {
+            var annotations = AnnotationAttachments.GetAnnotations(tempRoot).ToList();
+
+            Assert.Single(annotations);
+            Assert.Equal("TryGetValue", annotations[0].Text);
+            Assert.Equal("Lookup", annotations[0].Context);
+            Assert.Equal("ann ann-s ann-blue", annotations[0].CssClass);
+        }
+        finally
+        {
+            if (Directory.Exists(tempRoot))
+                Directory.Delete(tempRoot, true);
+        }
     }
 
     [Fact]
